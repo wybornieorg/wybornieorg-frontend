@@ -17,10 +17,15 @@
     <div class="tytul">{{project.tytul}}</div>
   </div>
   <div class="info">
-    <div v-tooltip="'kadencja, posiedzenie, głosowanie'" class="numery">
-      <div class="kadencja">k{{voting.numbers.kadencja}}</div><div class="posiedzenie">p{{voting.numbers.posiedzenie}}</div><div class="glosowanie">g{{voting.numbers.glosowanie}}</div>
+    <div class="wrap">
+      <div v-tooltip="'kadencja, posiedzenie, głosowanie'" class="numery">
+        <div class="kadencja">k{{voting.numbers.kadencja}}</div><div class="posiedzenie">p{{voting.numbers.posiedzenie}}</div><div class="glosowanie">g{{voting.numbers.glosowanie}}</div>
+      </div>
+      <div v-tooltip="'frekwencja'" class="frekwencja">f: {{Math.floor(voting.frekwencja * 100)}}%</div>
+      <div v-tooltip="'dostępne na MamPrawoWiedziec.pl'" class="mpw" v-if="voting.mpw">
+        <img src="https://mamprawowiedziec.pl/elementy/dymek.png" alt="mamprawowiedziec.pl">
+      </div>
     </div>
-    <div v-tooltip="'frekwencja'" class="frekwencja">f: {{Math.floor(voting.frekwencja * 100)}}%</div>
     <div v-tooltip="'data głosowania'" class="status">{{voting.status}} {{moment(voting.votingDate).calendar().toLowerCase()}}</div>
   </div>
 </router-link>
@@ -141,5 +146,13 @@ a {
 }
 a.router-link-exact-active {
   box-shadow: 0 0 0 1vmin var(--color-base) inset;
+}
+.wrap{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mpw{
+  margin: 0 1em;
 }
 </style>

@@ -66,7 +66,8 @@
         <template slot="popover">
           <div class="filtrowanie-status">
             <div>
-              <input id="uchwalonoCB" type="checkbox" value="uchwalono" v-model="filtrowanieStatus">          <label for="uchwalonoCB">uchwalone</label>
+              <input id="uchwalonoCB" type="checkbox" value="uchwalono" v-model="filtrowanieStatus">
+              <label for="uchwalonoCB">uchwalone</label>
             </div>
             <div>
               <input id="odrzuconyCB" type="checkbox" value="odrzucony" v-model="filtrowanieStatus">
@@ -75,6 +76,10 @@
             <div>
               <input id="nazwane" type="checkbox" value="nazwane" v-model="filtrowanieNazwane">
               <label for="nazwane">nazwane</label>
+            </div>
+            <div>
+              <input id="mamprawowiedziec" type="checkbox" value="mamprawowiedziec" v-model="filtrowanieMPW">
+              <label for="mamprawowiedziec"><img id="mpw-logo" src="@/assets/logo-MPW-RGB-poziom.png" alt="mamprawowiedziec.pl"></label>
             </div>
             <div>
               <input id="prawoUE" type="checkbox" v-model="filtrowanieUE">
@@ -167,6 +172,7 @@ export default {
       filtrowanieStatus: ['odrzucony', 'uchwalono'],
       filtrowanieUE: true,
       filtrowanieNazwane: false,
+      filtrowanieMPW: false,
       // filtrowanieGlos: ['za', 'przeciw'],
       sortowanieKierunek: 'malejaco',
       filtrowanieNazwa: ''
@@ -193,7 +199,7 @@ export default {
         // return this.kadencje.indexOf(item.kadencja) !== -1
         let result = this.filtrowanieStatus.indexOf(item.status) !== -1 && item.projects.every((a) => {
           return a.tytul.toLowerCase().indexOf(this.filtrowanieNazwa.toLowerCase()) !== -1
-        }) && (!this.filtrowanieNazwane || item.nazwa !== null)
+        }) && (!this.filtrowanieNazwane || item.nazwa !== null) && (!this.filtrowanieMPW || item.mpw)
         return result
       }).sort((a, b) => {
         if (this.sortowanie === 'data') {
@@ -333,7 +339,12 @@ span{
   flex-direction: column;
   align-items: flex-start;
 }
-
+.filtrowanie-status *{
+  display: flex;
+}
+img {
+  max-width: 10em;
+}
 input[type=radio]{
   visibility: hidden;
   position: absolute;

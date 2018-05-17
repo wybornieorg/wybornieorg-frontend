@@ -43,7 +43,7 @@
   <div class="support">
     <h2>Partnerzy</h2>
     <div class="supporters brands">
-      <a href="https://mamprawowiedziec.pl/"><img src="https://mamprawowiedziec.pl/elementy/mamprawowiedziec-540.png" alt="MamPrawoWiedziec.pl"></a>
+      <a href="https://mamprawowiedziec.pl/"><img src="@/assets/logo-MPW-RGB-poziom.png" alt="MamPrawoWiedziec.pl"></a>
       <a href="https://kodujdlapolski.pl/"><img src="https://kodujdlapolski.pl/wp-content/themes/kdp/images/logo.png" alt="kodujdlapolski.pl"></a>
     </div>
   </div>

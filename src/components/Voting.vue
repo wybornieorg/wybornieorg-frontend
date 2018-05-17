@@ -19,6 +19,8 @@
         </div>
 
         <div class="voting-data">
+          <mam-prawo-wiedziec v-if="currentVoting.mpw" :mpw="currentVoting.mpw"></mam-prawo-wiedziec>
+
           <h2>Dane głosowania</h2>
           <p>{{currentVoting.status}} {{votingTime.calendar().toLowerCase()}}</p>
           <p>frekwencja {{Math.floor(currentVoting.frekwencja*100)}}%</p>
@@ -73,6 +75,7 @@
 
 <script>
 import Deputy from '@/components/Deputy'
+import MamPrawoWiedziec from '@/components/MamPrawoWiedziec'
 
 export default {
   name: 'voting',
@@ -84,6 +87,7 @@ export default {
     }
   },
   components: {
+    MamPrawoWiedziec,
     Deputy
   },
   mounted () {
