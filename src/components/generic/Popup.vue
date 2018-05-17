@@ -5,7 +5,7 @@
   <div class="popup-window">
     <div class="header">
       <slot name="header"></slot>
-      <font-awesome-icon icon="window-close" size="3x" @click="$emit('close')"/>
+      <font-awesome-icon class="glow" icon="window-close" size="3x" @click="$emit('close')"/>
     </div>
     <div class="content">
       <slot name="content"></slot>
@@ -70,5 +70,8 @@ export default {
 }
 svg {
   cursor: pointer;
+}
+svg:active {
+  color: white;
 }
 </style>

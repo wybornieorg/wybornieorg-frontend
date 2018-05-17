@@ -46,10 +46,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .numery * {
-  display:inline-block;
   padding: 0em 0.5em;
 }
 .numery {
+  display: flex;
   font-weight: bold;
   font-variant: small-caps;
   float: left;
@@ -66,23 +66,22 @@ export default {
   overflow: hidden;
   padding: 0em 0.5em;
   margin-right: 0.5em;
-  background-color: blue;
+  background-color: hsla(240, 100%, 70%, 1);
 }
 .tytul{
   font-weight: 400;
-  /*font-size: 70%;*/
 }
 .kadencja {
-  /*border-top-left-radius: 5vmin;*/
-  background-color: hsla(60, 100%, 70%, 1);
+  background-color: hsla(60, 50%, 70%, 1);
 }
 .posiedzenie {
   background-color: hsla(39, 100%, 70%, 1);
 }
 .glosowanie {
-  background-color: hsla(0, 100%, 70%, 1);
+  background-color: hsla(0, 100%, 80%, 1);
 }
 .drukNr {
+  color: white;
   background-color: hsla(240, 100%, 80%, 1);
 }
 .uchwalono {
@@ -93,6 +92,10 @@ export default {
 }
 .nazwa-zwyczajowa {
   font-variant: small-caps;
+  font-weight: 900;
+  letter-spacing: .2em;
+  margin-bottom: .2em;
+  text-align: center;
 }
 
 .odrzucony {
@@ -123,6 +126,9 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   margin-top: 1vmin;
+}
+.info *{
+  color: white;
 }
 a {
   color: black;
