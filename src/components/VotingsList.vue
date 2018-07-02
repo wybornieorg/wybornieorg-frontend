@@ -75,7 +75,9 @@
             </div>
             <div>
               <input id="mamprawowiedziec" type="checkbox" value="mamprawowiedziec" v-model="filtrowanieMPW">
-              <label for="mamprawowiedziec"><img id="mpw-logo" src="@/assets/logo-MPW-RGB-poziom.png" alt="mamprawowiedziec.pl"></label>
+              <label for="mamprawowiedziec">#noweprawa
+<a target="_blank" href="http://serwis.mamprawowiedziec.pl/tag.php?tag=1&s=wchodzi%20w%20%C5%BCycie"><font-awesome-icon icon="external-link-alt" /></a>
+                </label>
             </div>
             <div>
               <input id="prawoUE" type="checkbox" v-model="filtrowanieUE">
