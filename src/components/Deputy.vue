@@ -69,10 +69,12 @@ export default {
 div {
   width: 100px;
 }
+
 text {
   dominant-baseline: central;
   text-anchor: middle;
 }
+
 .pis {
   stroke: firebrick;
 }

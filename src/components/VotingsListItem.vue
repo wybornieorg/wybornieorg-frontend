@@ -8,7 +8,7 @@
     Rozpatrywano wspólnie
   </div>
   <div class="projekty" v-for="project in voting.projects">
-    <div v-tooltip="'numer druku'" class="numery" >
+    <div v-tooltip="'numer druku'" class="numery">
       <div class="drukNr">#{{project.drukNr}}</div>
     </div>
     <div v-tooltip="'wprowadza prawo Unii Europejskiej'" v-if="project.prawoUE" class="ue">
@@ -19,7 +19,9 @@
   <div class="info">
     <div class="wrap">
       <div v-tooltip="'kadencja, posiedzenie, głosowanie'" class="numery">
-        <div class="kadencja">k{{voting.numbers.kadencja}}</div><div class="posiedzenie">p{{voting.numbers.posiedzenie}}</div><div class="glosowanie">g{{voting.numbers.glosowanie}}</div>
+        <div class="kadencja">k{{voting.numbers.kadencja}}</div>
+        <div class="posiedzenie">p{{voting.numbers.posiedzenie}}</div>
+        <div class="glosowanie">g{{voting.numbers.glosowanie}}</div>
       </div>
       <div v-tooltip="'frekwencja'" class="frekwencja">f: {{Math.floor(voting.frekwencja * 100)}}%</div>
       <div v-tooltip="'dostępne na MamPrawoWiedziec.pl'" class="mpw" v-if="voting.mpw">
@@ -38,8 +40,7 @@ export default {
   data () {
     return {}
   },
-  components: {
-  },
+  components: {},
   computed: {
     currentVotingVote () {
       return this.$store.state.userVotes[`${this.voting.numbers.kadencja}/${this.voting.numbers.posiedzenie}/${this.voting.numbers.glosowanie}`]
@@ -53,6 +54,7 @@ export default {
 .numery * {
   padding: 0em 0.5em;
 }
+
 .numery {
   display: flex;
   font-weight: bold;
@@ -63,7 +65,8 @@ export default {
   overflow: hidden;
   margin-right: 0.5em;
 }
-.ue{
+
+.ue {
   font-weight: bold;
   float: left;
   color: yellow;
@@ -73,28 +76,36 @@ export default {
   margin-right: 0.5em;
   background-color: hsla(240, 100%, 70%, 1);
 }
-.tytul{
+
+.tytul {
   font-weight: 400;
 }
+
 .kadencja {
   background-color: hsla(60, 50%, 70%, 1);
 }
+
 .posiedzenie {
   background-color: hsla(39, 100%, 70%, 1);
 }
+
 .glosowanie {
   background-color: hsla(0, 100%, 80%, 1);
 }
+
 .drukNr {
   color: white;
   background-color: hsla(240, 100%, 80%, 1);
 }
+
 .uchwalono {
   border-right: 1.75vmin solid forestgreen;
 }
-.uchwalono .status{
+
+.uchwalono .status {
   background-color: hsla(120, 50%, 70%, 1);
 }
+
 .nazwa-zwyczajowa {
   font-variant: small-caps;
   font-weight: 900;
@@ -106,53 +117,67 @@ export default {
 .odrzucony {
   border-right: 1.75vmin solid red;
 }
-.odrzucony .status{
+
+.odrzucony .status {
   background-color: hsla(348, 50%, 70%, 1);
 }
-.status, .frekwencja{
+
+.status,
+.frekwencja {
   font-variant: small-caps;
   padding: 0 0.5em;
   border-radius: 1vmin;
 }
+
 .frekwencja {
   background-color: hsla(180, 50%, 70%, 1);
 }
+
 .voting-list-item {
   background: #eee;
   padding: 2vmin;
   margin-bottom: 1vmin;
   border-radius: 1vmin;
 }
-.voting-list-item > * {
+
+.voting-list-item>* {
   margin-right: 1em;
 }
-.info{
+
+.info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 1vmin;
 }
-.info *{
+
+.info * {
   color: white;
 }
+
 a {
   color: black;
 }
+
 .za {
   background-color: lightgreen;
 }
+
 .przeciw {
   background-color: lightpink;
 }
+
 a.router-link-exact-active {
   box-shadow: 0 0 0 1vmin var(--color-base) inset;
 }
-.wrap{
+
+.wrap {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.mpw{
+
+.mpw {
   margin: 0 1em;
 }
 </style>

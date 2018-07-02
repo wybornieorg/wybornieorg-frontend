@@ -7,8 +7,8 @@
       <router-link :to="{ name: 'loading', params: { dane: this.userVotesEncoded } }">Zapisz swoje głosowania zachowując ten adres</router-link>
     </div>
     <div class="stats">
-    <stats-deputy v-if="doneLoading" v-for="(value, key, index) of deputiesStats" :deputy="value"></stats-deputy>
-  </div>
+      <stats-deputy v-if="doneLoading" v-for="(value, key, index) of deputiesStats" :deputy="value"></stats-deputy>
+    </div>
   </div>
 </div>
 </template>
@@ -68,7 +68,10 @@ export default {
 
       return Promise.all(promise).then(resolve => {
         for (var response of resolve) {
-          this.$store.commit('cacheVoting', { numbers: `${response.body.numbers.kadencja}/${response.body.numbers.posiedzenie}/${response.body.numbers.glosowanie}`, data: response.body })
+          this.$store.commit('cacheVoting', {
+            numbers: `${response.body.numbers.kadencja}/${response.body.numbers.posiedzenie}/${response.body.numbers.glosowanie}`,
+            data: response.body
+          })
         }
         // this.currentVoting = this.adjustVotes(response.body)
         this.getDeputiesStats()
@@ -117,11 +120,11 @@ export default {
   flex-wrap: wrap;
   align-items: center;
 }
+
 .export {
   background-color: pink;
   display: flex;
   justify-content: center;
   margin-bottom: 1em;
 }
-
 </style>

@@ -7,19 +7,21 @@
 
   <!-- <div  id="logo" @click="$emit('ostronie')" @mouseover="wybornie = true" @mouseleave="wybornie = false"></div> -->
   <div class="glow">
-    <font-awesome-icon v-tooltip="'Statystyki'" icon="chart-bar" @click="$emit('staty')"/>
+    <font-awesome-icon v-tooltip="'Statystyki'" icon="chart-bar" @click="$emit('staty')" />
   </div>
   <div class="glow">
-    <font-awesome-icon v-tooltip="'Poprzednie głosowanie'" icon="arrow-circle-left" @click="switchVoting(-1)"/>
+    <font-awesome-icon v-tooltip="'Poprzednie głosowanie'" icon="arrow-circle-left" @click="switchVoting(-1)" />
   </div>
   <div class="glow">
-    <font-awesome-icon v-tooltip="'Następne głosowanie'" icon="arrow-circle-right" @click="switchVoting(1)"/>
+    <font-awesome-icon v-tooltip="'Następne głosowanie'" icon="arrow-circle-right" @click="switchVoting(1)" />
   </div>
   <div id="listBtn" class="glow">
-    <font-awesome-icon icon="bars" @click="$emit('votingList')"/>
+    <font-awesome-icon icon="bars" @click="$emit('votingList')" />
   </div>
   <div>
-    <router-link :to="{ name: 'loading', params: {dane: this.userVotes} }"><font-awesome-icon v-tooltip="'Zapisz swoje głosy'" icon="save"/></router-link>
+    <router-link :to="{ name: 'loading', params: {dane: this.userVotes} }">
+      <font-awesome-icon v-tooltip="'Zapisz swoje głosy'" icon="save" />
+    </router-link>
   </div>
 </div>
 </template>
@@ -28,8 +30,7 @@
 export default {
   name: 'nav',
   data () {
-    return {
-    }
+    return {}
   },
   mounted () {
     document.addEventListener('keydown', (event) => {
@@ -48,46 +49,54 @@ export default {
   },
   methods: {
     switchVoting (direction) {
-      document.dispatchEvent(new CustomEvent('voteSwitch', { detail: direction }))
+      document.dispatchEvent(new CustomEvent('voteSwitch', {
+        detail: direction
+      }))
     }
   }
 }
 </script>
 
 <style scoped>
-.app-nav{
+.app-nav {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   background: #222;
   min-height: 10vmin;
 }
+
 .logo {
   height: 10vmin;
   width: 10vmin;
 }
+
 .logo img {
   width: 100%;
   height: 100%;
 }
+
 .app-nav * {
   user-select: none;
 }
-.app-nav > div {
+
+.app-nav>div {
   height: 10vmin;
   width: 10vmin;
   cursor: pointer;
   padding: 1vmin;
   box-sizing: border-box;
 }
+
 .app-nav svg {
   height: 8vmin;
   width: 8vmin;
 }
 
-#listBtn{
+#listBtn {
   display: none;
 }
+
 @media screen and (max-device-aspect-ratio: 1/1) {
   .app-nav {
     position: sticky;
@@ -95,15 +104,16 @@ export default {
     width: 100vw;
     flex-direction: row;
   }
-  #listBtn{
+  #listBtn {
     display: block;
   }
 }
+
 @media screen and (min-device-aspect-ratio: 1/1) {
   .app-nav {
     height: 100vh;
   }
-  #listBtn{
+  #listBtn {
     display: none;
   }
 }

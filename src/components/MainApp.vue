@@ -59,7 +59,6 @@ export default {
 </script>
 
 <style>
-
 #main-app {
   display: flex;
   height: 100vh;
@@ -81,24 +80,34 @@ export default {
   box-shadow: white 0 0 5vmin 0vmin inset, white 0 0 5vmin 0;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.2s;
 }
-.fade-enter, .fade-leave-to {
+
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
-.blink-enter-active, .blink-leave-active {
+
+.blink-enter-active,
+.blink-leave-active {
   transition: opacity 2s;
 }
-.blink-enter *, .blink-leave-to {
+
+.blink-enter *,
+.blink-leave-to {
   opacity: 0;
 }
+
 @keyframes rotate360 {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media screen and (max-device-aspect-ratio: 1/1) {
-  #main-app{
+  #main-app {
     flex-direction: column;
   }
   .list-hidden {

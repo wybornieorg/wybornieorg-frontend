@@ -1,18 +1,34 @@
 <template>
 <div class="about">
   <div class="social-links">
-    <a target="_blank" href="https://discord.gg/M4xp9NZ"><font-awesome-icon :icon="['fab', 'discord']"/></a>
-    <a target="_blank" href="https://trello.com/b/X1Jp1EXO/wybornieorg-nazwy-zwyczajowe-projekt%C3%B3w"><font-awesome-icon :icon="['fab', 'trello']"/></a>
-    <a target="_blank" href="https://trello.com/b/EEORaGl3/wybornieorg-rozw%C3%B3j"><font-awesome-icon :icon="['fab', 'trello']"/></a>
-    <a target="_blank" href="https://www.facebook.com/wybornieorg"><font-awesome-icon :icon="['fab', 'facebook']"/></a>
-    <a target="_blank" href="https://www.facebook.com/groups/766936056847305/"><font-awesome-icon :icon="['fab', 'facebook']"/></i></a>
-    <a target="_blank" href="https://github.com/fraunos/wybornieorg-frontend"><font-awesome-icon :icon="['fab', 'github']"/></a>
-    <a target="_blank" href="https://github.com/fraunos/wybornieorg-backend"><font-awesome-icon :icon="['fab', 'github']"/></a>
+    <a target="_blank" href="https://discord.gg/M4xp9NZ">
+      <font-awesome-icon :icon="['fab', 'discord']" />
+    </a>
+    <a target="_blank" href="https://trello.com/b/X1Jp1EXO/wybornieorg-nazwy-zwyczajowe-projekt%C3%B3w">
+      <font-awesome-icon :icon="['fab', 'trello']" />
+    </a>
+    <a target="_blank" href="https://trello.com/b/EEORaGl3/wybornieorg-rozw%C3%B3j">
+      <font-awesome-icon :icon="['fab', 'trello']" />
+    </a>
+    <a target="_blank" href="https://www.facebook.com/wybornieorg">
+      <font-awesome-icon :icon="['fab', 'facebook']" />
+    </a>
+    <a target="_blank" href="https://www.facebook.com/groups/766936056847305/">
+      <font-awesome-icon :icon="['fab', 'facebook']" />
+      </i>
+    </a>
+    <a target="_blank" href="https://github.com/fraunos/wybornieorg-frontend">
+      <font-awesome-icon :icon="['fab', 'github']" />
+    </a>
+    <a target="_blank" href="https://github.com/fraunos/wybornieorg-backend">
+      <font-awesome-icon :icon="['fab', 'github']" />
+    </a>
   </div>
 
   <p>Projekt ma na celu zwiększenie odpowiedzialności posłów za działania podejmowane podczas pełnienia kadencji w sejmie.</p>
-  <p>Aplikacja pobiera wszystkie projekty (uchwalone lub odrzucone) ze strony sejmu <a target="_blank" href="http://www.sejm.gov.pl/Sejm8.nsf/page.xsp/przeglad_projust">przegląd projektów ustaw</a> oraz odpowiednich stron <a target="_blank" href="http://www.sejm.gov.pl/Sejm8.nsf/page.xsp/archiwum">archiwum</a>, a następnie pozwala zagłosować
-    na nie wyświetlając przy tym wszelkie zebrane informacje, by ułatwić wybór. Po zagłosowaniu na wybrane przez siebie projekty użytkownik może przejść do podstrony Statystyki, by zobaczyć z którymi z posłów i ugrupowań najbardziej się zgadza.</p>
+  <p>Aplikacja pobiera wszystkie projekty (uchwalone lub odrzucone) ze strony sejmu <a target="_blank" href="http://www.sejm.gov.pl/Sejm8.nsf/page.xsp/przeglad_projust">przegląd projektów ustaw</a> oraz odpowiednich stron <a target="_blank" href="http://www.sejm.gov.pl/Sejm8.nsf/page.xsp/archiwum">archiwum</a>,
+    a następnie pozwala zagłosować na nie wyświetlając przy tym wszelkie zebrane informacje, by ułatwić wybór. Po zagłosowaniu na wybrane przez siebie projekty użytkownik może przejść do podstrony Statystyki, by zobaczyć z którymi z posłów i ugrupowań
+    najbardziej się zgadza.</p>
   <p>Autor strony przyłożył wszelkich starań przy projektowaniu aplikacji by zachować:
     <ul>
       <li>bezpieczeństwo - żadne dane użytkownika nie są rejestrowane i przesyłane na serwer</li>
@@ -50,8 +66,7 @@ export default {
   created () {
     this.fetchTrelloData()
   },
-  components: {
-  },
+  components: {},
   methods: {
     fetchTrelloData () {
       this.$http.get('https://api.trello.com/1/boards/59e5eea27c51ae318c5fb7a2/cards').then(response => {
@@ -76,14 +91,17 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-.social-links svg{
+
+.social-links svg {
   width: 2em;
   height: 2em;
 }
+
 .social-links {
   display: flex;
   justify-content: space-around;
 }
+
 a {
   white-space: nowrap;
 }

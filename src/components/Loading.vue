@@ -2,11 +2,11 @@
 <div class="loaded-data">
   <div class="">
     <div class="hint">
-      <h3><font-awesome-icon icon="lightbulb"/>Wskazówka!</h3>
-      Zapisz tę stronę w zakładce <font-awesome-icon icon="bookmark"/>żeby móc powrócić do swoich głosów!
+      <h3><font-awesome-icon icon="lightbulb"/>Wskazówka!</h3> Zapisz tę stronę w zakładce
+      <font-awesome-icon icon="bookmark" />żeby móc powrócić do swoich głosów!
     </div>
     <div class="button-confirm glow" @click="confirm">
-      <font-awesome-icon icon="check-circle"/>Wczytaj głosy
+      <font-awesome-icon icon="check-circle" />Wczytaj głosy
     </div>
   </div>
   <div class="votes-container">
@@ -28,8 +28,7 @@
 export default {
   props: ['dane'],
   data () {
-    return {
-    }
+    return {}
   },
   computed: {
     daneP () {
@@ -43,7 +42,9 @@ export default {
   methods: {
     confirm () {
       this.$store.commit('loadSavedData', this.daneP)
-      this.$router.push({ name: 'voting' })
+      this.$router.push({
+        name: 'voting'
+      })
     },
     set (data, key) {
       this.$set(this.daneP, key, data * -1)
@@ -53,53 +54,62 @@ export default {
 </script>
 
 <style scoped>
-  div{
-    word-wrap: break-word;
-  }
-  .loaded-data {
-    margin: 5vmin;
-    display: flex;
-  }
-  .hint{
-    background: white;
-    padding: 1em;
-    border-radius: 1vmin;
-  }
+div {
+  word-wrap: break-word;
+}
 
-  .votes{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    /* background-color: white; */
-  }
-  .votes-container{
-    padding: 0 5vmin;
-    color: white;
-  }
-  .votes:after {
+.loaded-data {
+  margin: 5vmin;
+  display: flex;
+}
+
+.hint {
+  background: white;
+  padding: 1em;
+  border-radius: 1vmin;
+}
+
+.votes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* background-color: white; */
+}
+
+.votes-container {
+  padding: 0 5vmin;
+  color: white;
+}
+
+.votes:after {
   content: "";
   flex: auto;
-  }
-  .vote{
-    border-radius: 1vmin;
-    padding: .2em .3em;
-    margin: .2em;
-    font-weight: bold;
-    color: black;
-  }
-  .za {
-    background: hsla(120, 50%, 70%, 1);
-  }
-  .przeciw {
-    background: hsla(348, 50%, 70%, 1);
-  }
-  #saved-data {
-    width: 30vmin;
-    height: 30vmin;
-  }
-  .button-confirm {
-    cursor: pointer;
-    font-size: 3em;
-    color: var(--color-base);
-  }
+}
+
+.vote {
+  border-radius: 1vmin;
+  padding: .2em .3em;
+  margin: .2em;
+  font-weight: bold;
+  color: black;
+}
+
+.za {
+  background: hsla(120, 50%, 70%, 1);
+}
+
+.przeciw {
+  background: hsla(348, 50%, 70%, 1);
+}
+
+#saved-data {
+  width: 30vmin;
+  height: 30vmin;
+}
+
+.button-confirm {
+  cursor: pointer;
+  font-size: 3em;
+  color: var(--color-base);
+}
 </style>

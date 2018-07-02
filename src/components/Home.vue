@@ -4,17 +4,25 @@
     <div class="logo center">
       <a href="/"><img src="/static/img/icons/logo.svg" alt=""> wybornie.org</a>
       <div class="social-links">
-        <a v-tooltip.bottom="'Facebook'" target="_blank" href="https://www.facebook.com/wybornieorg"><font-awesome-icon :icon="['fab', 'facebook']"/></a>
-        <a v-tooltip.bottom="'Github'" target="_blank" href="https://github.com/wybornieorg"><font-awesome-icon :icon="['fab', 'github']"/></a>
-        <a v-tooltip.bottom="'Trello'" target="_blank" href="https://trello.com/wybornieorg"><font-awesome-icon :icon="['fab', 'trello']"/></a>
-        <a  v-tooltip.bottom="'Discord'" target="_blank" href="https://discord.gg/M4xp9NZ"><font-awesome-icon :icon="['fab', 'discord']"/></a>
+        <a v-tooltip.bottom="'Facebook'" target="_blank" href="https://www.facebook.com/wybornieorg">
+          <font-awesome-icon :icon="['fab', 'facebook']" />
+        </a>
+        <a v-tooltip.bottom="'Github'" target="_blank" href="https://github.com/wybornieorg">
+          <font-awesome-icon :icon="['fab', 'github']" />
+        </a>
+        <a v-tooltip.bottom="'Trello'" target="_blank" href="https://trello.com/wybornieorg">
+          <font-awesome-icon :icon="['fab', 'trello']" />
+        </a>
+        <a v-tooltip.bottom="'Discord'" target="_blank" href="https://discord.gg/M4xp9NZ">
+          <font-awesome-icon :icon="['fab', 'discord']" />
+        </a>
       </div>
     </div>
     <router-link class="aplikacja" :to="{ name: 'voting', params: {} }">Przejdź do aplikacji!</router-link>
   </div>
   <div class="info gradient">
     <div class="info-inside">
-      <font-awesome-icon :icon="['fas', 'wrench']"/>Strona jest w budowie, jeśli jest błąd lub masz pomysł jak ją ulepszyć - <a href="mailto:michalwoloszyn+qn4cepjbzdv0zj3zg7yf@boards.trello.com">skontaktuj się</a>!
+      <font-awesome-icon :icon="['fas', 'wrench']" />Strona jest w budowie, jeśli jest błąd lub masz pomysł jak ją ulepszyć - <a href="mailto:michalwoloszyn+qn4cepjbzdv0zj3zg7yf@boards.trello.com">skontaktuj się</a>!
     </div>
   </div>
   <video src="https://fraunos.keybase.pub/wybornieorg/wybornie.webm" controls controlsList="nodownload"></video>
@@ -71,10 +79,9 @@
     <a href="http://antyweb.pl/wybornie-org-glosuj-na-projekty-ustaw/"><img src="https://static01.helion.com.pl/helion/img/rozne/patroni/PODSTA/AW_logo.jpg" alt=""></a>
   </div>
   <div class="donation">
-  <font-awesome-icon class="heart" :icon="['fas', 'heart']"/>
-  <h3>Serwis wybornie.org jest udostępniany <i>pro bono</i>, na zawsze za darmo. Możesz wesprzeć projekt wpłacając drobną kwotę na podany numer konta:</h3>
-  Michał Wołoszyn, tytułem: wybornie, 30 1160 2202 0000 0002 9120 5807
-</div>
+    <font-awesome-icon class="heart" :icon="['fas', 'heart']" />
+    <h3>Serwis wybornie.org jest udostępniany <i>pro bono</i>, na zawsze za darmo. Możesz wesprzeć projekt wpłacając drobną kwotę na podany numer konta:</h3> Michał Wołoszyn, tytułem: wybornie, 30 1160 2202 0000 0002 9120 5807
+  </div>
 </div>
 </template>
 
@@ -90,7 +97,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.home{
+.home {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,34 +105,41 @@ export default {
   width: 100vmin;
   padding: 5vmin;
 }
-.home > div {
+
+.home>div {
   box-shadow: hsla(0, 0%, 0%, .1) 0 1vmin 2vmin 0;
   margin: 2vmin;
   padding: 2vmin;
   border-radius: 1vmin;
 }
+
 .logo {
   display: flex;
   flex-direction: column;
   width: auto;
   align-self: flex-start;
 }
-.logo > * {
+
+.logo>* {
   font-weight: 900;
 }
-.logo > a {
+
+.logo>a {
   display: flex;
   align-items: center;
 }
+
 .logo img {
   margin: 0 .25em .25em 0;
 }
-video{
+
+video {
   width: 100%;
   border-radius: 1vmin;
   box-shadow: hsl(0, 0%, 90%) 0 1vmin 2vmin 0;
 }
-.header{
+
+.header {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
@@ -134,33 +148,37 @@ video{
   font-size: 200%;
   color: white;
 }
-.header > *{
+
+.header>* {
   margin: 1vmin;
 }
+
 .social-links {
   display: flex;
   justify-content: space-between;
 }
-.info{
+
+.info {
   font-weight: bold;
   text-align: center;
   padding: 5vmin;
 }
-.info-inside{
+
+.info-inside {
   background: hsl(50, 100%, 50%);
   padding: 1em;
   border-radius: 1vmin;
 }
+
 .gradient {
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      hsl(50, 100%, 50%),
-      hsl(50, 100%, 50%) 10px,
-      hsl(0, 0%, 20%) 10px,
-      hsl(0, 0%, 20%) 20px /* determines size */
-    );
+  background-image: repeating-linear-gradient( 45deg,
+  hsl(50, 100%, 50%),
+  hsl(50, 100%, 50%) 10px,
+  hsl(0, 0%, 20%) 10px,
+  hsl(0, 0%, 20%) 20px/* determines size */
+  );
 }
+
 .aplikacja {
   display: flex;
   align-items: center;
@@ -169,34 +187,41 @@ video{
   padding: .5em;
   border-radius: 1vmin;
 }
+
 .aplikacja:hover {
   background: white;
   color: var(--color-base);
 }
-div{
+
+div {
   width: 100%;
 }
-img{
+
+img {
   max-width: 70vmin;
   max-height: 10vmin;
 }
+
 .brands {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
 }
-.brands img{
+
+.brands img {
   margin: 2vmin;
 }
-.donation{
+
+.donation {
   background: var(--color-base);
   color: white;
   box-sizing: border-box;
   padding: 3em;
   text-align: center;
 }
-.heart{
+
+.heart {
   stroke: white;
 }
 </style>

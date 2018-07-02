@@ -1,44 +1,40 @@
 <template>
-  <div class="voting-menu">
-    <popup v-if="dbUpdate" @close="dbUpdate = false">
-      <h1 slot="header"><font-awesome-icon icon="sync-alt" />Ups!</h1>
-      <div slot="content">
-        <h3>Właśnie trwa synchronizacja bazy danych <a href="wybornie.org">wybornie.org</a> ze stroną Sejmu!</h3>
-         <p>Z tego powodu nie wszystkie funkcje są dostępne (brak niektórych głosowań, brak artykułów mamprawowiedziec.pl i nazw zwyczajowych). Jeśli Ci to przeszkadza, spróbuj odświeżyć stronę za 5 minut i skorzystaj kiedy przestanie się pojawiać to okno!</p>
-         <strong>Nie zapomnij zapisać swoich głosów, usuną się, jeśli odświeżysz bez zapisania ich!</strong>
+<div class="voting-menu">
+  <popup v-if="dbUpdate" @close="dbUpdate = false">
+    <h1 slot="header"><font-awesome-icon icon="sync-alt" />Ups!</h1>
+    <div slot="content">
+      <h3>Właśnie trwa synchronizacja bazy danych <a href="wybornie.org">wybornie.org</a> ze stroną Sejmu!</h3>
+      <p>Z tego powodu nie wszystkie funkcje są dostępne (brak niektórych głosowań, brak artykułów mamprawowiedziec.pl i nazw zwyczajowych). Jeśli Ci to przeszkadza, spróbuj odświeżyć stronę za 5 minut i skorzystaj kiedy przestanie się pojawiać to okno!</p>
+      <strong>Nie zapomnij zapisać swoich głosów, usuną się, jeśli odświeżysz bez zapisania ich!</strong>
+    </div>
+  </popup>
+  <div class="sort-filter-menu">
+    <v-popover offset="16">
+      <div class="tooltip-target b3 glow">
+        <span>{{kadencje}}</span>
       </div>
-    </popup>
-    <div class="sort-filter-menu">
-      <v-popover
-        offset="16"
-      >
-        <div class="tooltip-target b3 glow">
-          <span>{{kadencje}}</span>
-        </div>
 
-        <template slot="popover">
+      <template slot="popover">
           <div v-for="item in [3, 4, 5, 6, 7, 8].reverse()">
             <input v-close-popover :id="'k' + item" type="radio" :value="item" v-model="kadencje">
             <label :for="'k' + item">{{item}}</label>
           </div>
         </template>
-      </v-popover>
+    </v-popover>
 
-      <v-popover
-        offset="16"
-      >
-        <div class="tooltip-target b3 glow">
-          <font-awesome-icon v-if="sortowanie === 'data'" icon="calendar" />
-          <font-awesome-icon v-if="sortowanie === 'frekwencja'" icon="users" />
-          <font-awesome-icon v-if="sortowanieKierunek === 'rosnaco'" icon="sort-up" />
-          <font-awesome-icon v-if="sortowanieKierunek === 'malejaco'" icon="sort-down" />
-        </div>
+    <v-popover offset="16">
+      <div class="tooltip-target b3 glow">
+        <font-awesome-icon v-if="sortowanie === 'data'" icon="calendar" />
+        <font-awesome-icon v-if="sortowanie === 'frekwencja'" icon="users" />
+        <font-awesome-icon v-if="sortowanieKierunek === 'rosnaco'" icon="sort-up" />
+        <font-awesome-icon v-if="sortowanieKierunek === 'malejaco'" icon="sort-down" />
+      </div>
 
-        <template slot="popover">
+      <template slot="popover">
           <div>
             <div>
               <input type="radio" id="malejaco" value="malejaco" v-model="sortowanieKierunek">
-              <label for="malejaco"><font-awesome-icon icon="sort-down" />malejąco</label>
+        <label for="malejaco"><font-awesome-icon icon="sort-down" />malejąco</label>
             </div>
             <div>
               <input type="radio" id="rosnaco" value="rosnaco" v-model="sortowanieKierunek">
@@ -51,19 +47,19 @@
               <label for="data"><font-awesome-icon icon="calendar" />data</label>
             </div>
             <div>
-              <input v-close-popover type="radio" id="frekwencja" value="frekwencja" v-model="sortowanie">
+      <input v-close-popover type="radio" id="frekwencja" value="frekwencja" v-model="sortowanie">
               <label for="frekwencja"><font-awesome-icon icon="users" />frekwencja</label>
-            </div>
+  </div>
           </div>
         </template>
-      </v-popover>
+    </v-popover>
 
-      <v-popover
-        offset="16"
-      >
-        <div class="tooltip-target b3 glow"><font-awesome-icon icon="filter" /></div>
+    <v-popover offset="16">
+      <div class="tooltip-target b3 glow">
+        <font-awesome-icon icon="filter" />
+      </div>
 
-        <template slot="popover">
+      <template slot="popover">
           <div class="filtrowanie-status">
             <div>
               <input id="uchwalonoCB" type="checkbox" value="uchwalono" v-model="filtrowanieStatus">
@@ -87,24 +83,24 @@
             </div>
           </div>
         </template>
-      </v-popover>
+    </v-popover>
 
-      <v-popover
-        offset="16" @show="focusSearch"
-      >
-        <div class="tooltip-target b3 glow search"><font-awesome-icon icon="search" /></div>
+    <v-popover offset="16" @show="focusSearch">
+      <div class="tooltip-target b3 glow search">
+        <font-awesome-icon icon="search" />
+      </div>
 
-        <template slot="popover">
+      <template slot="popover">
           <div class="filtrowanie-nazwa">
             <input type="text" id="filtrowanieNazwa" v-model="filtrowanieNazwa" placeholder="Filtruj tytuły, np. 'podatk'">
           </div>
         </template>
-      </v-popover>
+    </v-popover>
 
 
 
 
-      <!--
+    <!--
 
       <div class="filtrowanie-status">
         <div>
@@ -130,7 +126,7 @@
         <label for="filtrowanieNazwa"></label>
         <input type="text" name="filtrowanieNazwa" v-model="filtrowanieNazwa" placeholder="Filtruj tytuły, np. 'podatk'">
       </div> -->
-      <!-- <div class="filtrowanie-glos">
+    <!-- <div class="filtrowanie-glos">
         <div>
           <input id="za" type="checkbox" name="za" value="za" v-model="filtrowanieGlos">
           <label for="za">Za</label>
@@ -140,17 +136,17 @@
           <label for="przeciw">Przeciw</label>
         </div>
       </div> -->
-      <div class="center nowrap">
-        Σ {{votingsProcessed.length}}
-      </div>
-    </div>
-
-    <div id="scrollable-container">
-      <div class="voting-list" @click="$emit('hideList')">
-        <votings-list-item  :id="index" v-for="(voting, index) in votingsDisplayed" :key="index" :voting='voting'></votings-list-item>
-      </div>
+    <div class="center nowrap">
+      Σ {{votingsProcessed.length}}
     </div>
   </div>
+
+  <div id="scrollable-container">
+    <div class="voting-list" @click="$emit('hideList')">
+      <votings-list-item :id="index" v-for="(voting, index) in votingsDisplayed" :key="index" :voting='voting'></votings-list-item>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -180,7 +176,12 @@ export default {
   },
   watch: {
     'kadencje': function () {
-      this.$router.push({ name: 'voting', params: { kadencja: this.kadencje } })
+      this.$router.push({
+        name: 'voting',
+        params: {
+          kadencja: this.kadencje
+        }
+      })
       this.fetchVotings(this.kadencje)
     },
     'votingsProcessed': function () {
@@ -262,8 +263,7 @@ export default {
             glosowanie: self.votingsProcessed[currentVotingIndex + state].numbers.glosowanie
           }
         })
-      } catch (e) {
-      }
+      } catch (e) {}
     },
     focusSearch () {
       setTimeout(() => {
@@ -283,6 +283,7 @@ export default {
   height: 100vh;
   z-index: 40;
 }
+
 .sort-filter-menu {
   display: flex;
   flex-direction: row;
@@ -293,11 +294,13 @@ export default {
   height: 10vmin;
   font-size: 150%;
 }
-.sort-filter-menu > div {
+
+.sort-filter-menu>div {
   width: 10vmin;
   height: 10vmin;
   user-select: none;
 }
+
 .b3 {
   display: flex;
   justify-content: center;
@@ -308,48 +311,59 @@ export default {
   cursor: pointer;
   box-sizing: border-box;
 }
-.b3 svg{
+
+.b3 svg {
   height: 8vmin;
   width: 8vmin;
 }
-span{
+
+span {
   vertical-align: middle;
   font-size: 10vmin;
   height: 10vmin;
 }
+
 .b3 * {
   position: absolute;
 }
-.tooltip-inner label{
+
+.tooltip-inner label {
   cursor: pointer;
 }
-.filtrowanie-nazwa{
+
+.filtrowanie-nazwa {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
-.filtrowanie-nazwa input{
+
+.filtrowanie-nazwa input {
   color: black;
   background-color: transparent;
   width: 13em;
   border: none;
 }
-.filtrowanie-status{
+
+.filtrowanie-status {
   flex-direction: column;
   align-items: flex-start;
 }
-.filtrowanie-status *{
+
+.filtrowanie-status * {
   display: flex;
 }
+
 img {
   max-width: 10em;
 }
-input[type=radio]{
+
+input[type=radio] {
   visibility: hidden;
   position: absolute;
 }
-.nowrap{
+
+.nowrap {
   white-space: nowrap;
 }
 
@@ -363,13 +377,14 @@ input[type=radio]{
   overflow-y: scroll;
   background: #333;
 }
-.error{
+
+.error {
   color: red;
   transition: none;
 }
 
 @media screen and (max-device-aspect-ratio: 1/1) {
-  .voting-menu{
+  .voting-menu {
     position: fixed;
   }
 
