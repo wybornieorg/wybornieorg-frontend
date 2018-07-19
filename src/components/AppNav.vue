@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: 'nav',
+  name: 'app-nav',
   data () {
     return {}
   },
