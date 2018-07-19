@@ -10,7 +10,7 @@
   </popup>
   <div class="sort-filter-menu">
     <v-popover offset="16">
-      <div class="tooltip-target b3 glow">
+      <div v-tooltip="'Kadencje'" class="tooltip-target b3 glow">
         <span>{{kadencje}}</span>
       </div>
 
@@ -23,7 +23,7 @@
     </v-popover>
 
     <v-popover offset="16">
-      <div class="tooltip-target b3 glow">
+      <div v-tooltip="'Sortowanie'" class="tooltip-target b3 glow">
         <font-awesome-icon v-if="sortowanie === 'data'" icon="calendar" />
         <font-awesome-icon v-if="sortowanie === 'frekwencja'" icon="users" />
         <font-awesome-icon v-if="sortowanieKierunek === 'rosnaco'" icon="sort-up" />
@@ -55,7 +55,7 @@
     </v-popover>
 
     <v-popover offset="16">
-      <div class="tooltip-target b3 glow">
+      <div v-tooltip="'Filtrowanie'" class="tooltip-target b3 glow">
         <font-awesome-icon icon="filter" />
       </div>
 
@@ -88,7 +88,7 @@
     </v-popover>
 
     <v-popover offset="16" @show="focusSearch">
-      <div class="tooltip-target b3 glow search">
+      <div v-tooltip="'Wyszukiwanie'" class="tooltip-target b3 glow search">
         <font-awesome-icon icon="search" />
       </div>
 
