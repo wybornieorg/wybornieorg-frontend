@@ -7,7 +7,7 @@
       <router-link :to="{ name: 'loading', params: { dane: this.userVotesEncoded } }">Zapisz swoje głosowania zachowując ten adres</router-link>
     </div>
     <div class="stats">
-      <stats-deputy v-if="doneLoading" v-for="(value, key, index) of deputiesStats" :deputy="value"></stats-deputy>
+      <stats-deputy v-if="doneLoading" v-for="(value, key, index) of deputiesStats" :key="index" :deputy="value"></stats-deputy>
     </div>
   </div>
 </div>
@@ -76,6 +76,15 @@ export default {
         // this.currentVoting = this.adjustVotes(response.body)
         this.getDeputiesStats()
       })
+    },
+    adjustVotes (project) {
+      console.log(project.votingIntention)
+      if ((project.votingIntention === 'odrzucenie')) {
+        for (let deputy of project.deputies) {
+          deputy.vote = this.switchVote(deputy.vote)
+        }
+      }
+      return project
     },
     getDeputiesStats () {
       console.log('deputiesStats')

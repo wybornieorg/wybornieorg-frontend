@@ -80,7 +80,7 @@
       <svg id="deputies-graph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 130">
             <text text-anchor="middle" dominant-baseline="hanging" x="0" y="0" font-family="mono" font-weight="bold" font-size="10" stroke="none" fill="black">{{currentVoting.drukNr}}</text>
             <g>
-              <deputy v-for="(deputy, index) in currentVoting.deputies" :singleDeputy='deputy' :cx="placeX(index)" :cy="placeY(index)" :i="index"></deputy>
+              <deputy v-for="(deputy, index) in currentVoting.deputies" :key="index" :singleDeputy='deputy' :cx="placeX(index)" :cy="placeY(index)" :i="index"></deputy>
             </g>
             <g>
               <text x='5' y='125' font-size="8" stroke-width="5" stroke-linejoin="bevel" stroke-linecap="round" stroke="darkorchid" fill="white">Wstrzymał się</text>
