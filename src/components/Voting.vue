@@ -189,7 +189,7 @@ export default {
       if (!this.currentVoting && this.posiedzenie && this.glosowanie) {
         this.$store.commit('loadingUp')
         this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`).then(response => {
-          this.currentVoting = this.adjustVotes(response.data)
+          this.$store.commit('adjustVotes', response.data)
           this.$store.commit('cacheVoting', {
             numbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`,
             data: response.data
@@ -198,23 +198,6 @@ export default {
         }, response => {
           // error callback
         })
-      }
-    },
-    adjustVotes (project) {
-      if ((project.votingIntention === 'odrzucenie')) {
-        for (let deputy of project.deputies) {
-          deputy.vote = this.switchVote(deputy.vote)
-        }
-      }
-      return project
-    },
-    switchVote (vote) {
-      if (vote === 'Za') {
-        return 'Przeciw'
-      } else if (vote === 'Przeciw') {
-        return 'Za'
-      } else {
-        return vote
       }
     },
     mediaLink (tytul) {

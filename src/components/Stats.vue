@@ -65,26 +65,19 @@ export default {
           promise.push(this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + numbers))
         }
       }
-
-      return Promise.all(promise).then(resolve => {
-        for (var response of resolve) {
-          this.$store.commit('cacheVoting', {
-            numbers: `${response.data.numbers.kadencja}/${response.data.numbers.posiedzenie}/${response.data.numbers.glosowanie}`,
-            data: response.data
-          })
-        }
-        // this.currentVoting = this.adjustVotes(response.data)
-        this.getDeputiesStats()
-      })
-    },
-    adjustVotes (project) {
-      console.log(project.votingIntention)
-      if ((project.votingIntention === 'odrzucenie')) {
-        for (let deputy of project.deputies) {
-          deputy.vote = this.switchVote(deputy.vote)
-        }
+      console.log('Get all')
+      if (promise !== []) {
+        Promise.all(promise).then(resolve => {
+          for (var response of resolve) {
+            this.$store.commit('adjustVotes', response.data)
+            this.$store.commit('cacheVoting', {
+              numbers: `${response.data.numbers.kadencja}/${response.data.numbers.posiedzenie}/${response.data.numbers.glosowanie}`,
+              data: response.data
+            })
+          }
+          this.getDeputiesStats()
+        })
       }
-      return project
     },
     getDeputiesStats () {
       console.log('deputiesStats')

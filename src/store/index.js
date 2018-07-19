@@ -29,6 +29,14 @@ export default new Vuex.Store({
     cacheVoting: (state, props) => {
       console.log('caching ' + props.numbers)
       Vue.set(state.votingsCache, props.numbers, props.data)
+    },
+    adjustVotes (state, props) {
+      if ((props.votingIntention === 'odrzucenie')) {
+        for (let deputy of props.deputies) {
+          deputy.vote = switchVote(deputy.vote)
+        }
+      }
+      return props
     }
   },
   actions: {
@@ -42,3 +50,13 @@ export default new Vuex.Store({
     }
   }
 })
+
+function switchVote (vote) {
+  if (vote === 'Za') {
+    return 'Przeciw'
+  } else if (vote === 'Przeciw') {
+    return 'Za'
+  } else {
+    return vote
+  }
+}
