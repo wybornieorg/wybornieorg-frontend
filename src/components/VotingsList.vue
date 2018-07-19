@@ -240,8 +240,8 @@ export default {
       this.$store.commit('loadingUp')
       this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + kadencja).then(response => {
         this.$store.commit('loadingDown')
-        this.dbUpdate = response.body.collectorStatus
-        this.votings = response.body.votings
+        this.dbUpdate = response.data.collectorStatus
+        this.votings = response.data.votings
       }, response => {
         // error callback
       })

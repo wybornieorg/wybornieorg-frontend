@@ -70,10 +70,10 @@ export default {
   methods: {
     fetchTrelloData () {
       this.$http.get('https://api.trello.com/1/boards/59e5eea27c51ae318c5fb7a2/cards').then(response => {
-        this.todo = response.body.filter((item) => {
+        this.todo = response.data.filter((item) => {
           return item.idList === '59e5f37e78966b943012e1d2'
         })
-        this.done = response.body.filter((item) => {
+        this.done = response.data.filter((item) => {
           return item.idList === '59e5f3835d4cb88f28d42234'
         })
       }, response => {

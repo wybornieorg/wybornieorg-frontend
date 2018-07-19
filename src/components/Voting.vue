@@ -189,10 +189,10 @@ export default {
       if (!this.currentVoting && this.posiedzenie && this.glosowanie) {
         this.$store.commit('loadingUp')
         this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`).then(response => {
-          this.currentVoting = this.adjustVotes(response.body)
+          this.currentVoting = this.adjustVotes(response.data)
           this.$store.commit('cacheVoting', {
             numbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`,
-            data: response.body
+            data: response.data
           })
           this.$store.commit('loadingDown')
         }, response => {

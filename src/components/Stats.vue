@@ -69,11 +69,11 @@ export default {
       return Promise.all(promise).then(resolve => {
         for (var response of resolve) {
           this.$store.commit('cacheVoting', {
-            numbers: `${response.body.numbers.kadencja}/${response.body.numbers.posiedzenie}/${response.body.numbers.glosowanie}`,
-            data: response.body
+            numbers: `${response.data.numbers.kadencja}/${response.data.numbers.posiedzenie}/${response.data.numbers.glosowanie}`,
+            data: response.data
           })
         }
-        // this.currentVoting = this.adjustVotes(response.body)
+        // this.currentVoting = this.adjustVotes(response.data)
         this.getDeputiesStats()
       })
     },
