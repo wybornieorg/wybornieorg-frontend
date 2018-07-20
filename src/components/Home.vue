@@ -22,7 +22,7 @@
   </div>
   <div class="info gradient">
     <div class="info-inside">
-      <font-awesome-icon :icon="['fas', 'wrench']" />Strona jest w budowie, jeśli jest błąd lub masz pomysł jak ją ulepszyć - <a href="mailto:michalwoloszyn+qn4cepjbzdv0zj3zg7yf@boards.trello.com">skontaktuj się</a>!
+      <font-awesome-icon :icon="['fas', 'wrench']" />Strona jest w budowie, jeśli jest błąd lub masz pomysł jak ją ulepszyć - <a href="mailto:kontakt@fraunos.pl">skontaktuj się</a>!
     </div>
   </div>
   <video src="https://fraunos.keybase.pub/wybornieorg/wybornie.webm" controls controlsList="nodownload"></video>
