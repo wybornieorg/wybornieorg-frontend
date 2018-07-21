@@ -238,7 +238,7 @@ export default {
   methods: {
     fetchVotings (kadencja) {
       this.$store.commit('loadingUp')
-      this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + kadencja).then(response => {
+      this.$http.get(this.$store.state.domain + '/dev/glosowania/' + kadencja).then(response => {
         this.$store.commit('loadingDown')
         this.dbUpdate = response.data.collectorStatus
         this.votings = response.data.votings

@@ -188,7 +188,7 @@ export default {
     fetchVoting () {
       if (!this.currentVoting && this.posiedzenie && this.glosowanie) {
         this.$store.commit('loadingUp')
-        this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`).then(response => {
+        this.$http.get(this.$store.state.domain + '/dev/glosowania/' + `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`).then(response => {
           this.$store.commit('adjustVotes', response.data)
           this.$store.commit('cacheVoting', {
             numbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`,

@@ -5,7 +5,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userVotes: {},
-    domain: 'http://89.69.164.147',
+    domain: 'https://sejmor.herokuapp.com',
     votingsCache: {},
     loading: 0
   },

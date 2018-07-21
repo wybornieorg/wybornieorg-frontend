@@ -62,7 +62,7 @@ export default {
         console.log(`${numbers} ${this.userVotes[numbers]}`)
         let voting = this.$store.getters.currentVoting(numbers)
         if (voting === undefined) {
-          promise.push(this.$http.get(this.$store.state.domain + ':3000/dev/glosowania/' + numbers))
+          promise.push(this.$http.get(this.$store.state.domain + '/dev/glosowania/' + numbers))
         }
       }
       console.log('Get all')
