@@ -1,21 +1,15 @@
 <template>
-<div id="app">
-  <router-view></router-view>
-</div>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
-<script>
-export default {
-  name: 'app'
-}
-</script>
-
-<style>
-@import url(/static/Lato2OFLWeb/LatoLatin/latolatinfonts.css);
+<style lang="scss">
+@import url("/Lato2OFLWeb/LatoLatin/latolatinfonts.css");
 
 body {
   margin: 0;
-  font-family: 'Lato', 'LatoLatinWeb', sans-serif;
+  font-family: "Lato", "LatoLatinWeb", sans-serif;
   font-size: 2vmin;
   background: #444;
 }
@@ -36,64 +30,71 @@ a {
   font-weight: bold;
   outline: none;
   color: var(--color-base);
-  transition: .2s;
+  transition: 0.2s;
 }
 a:hover {
   color: white;
-  filter: drop-shadow(0 0 0.2em var(--color-base)) drop-shadow(0 0 0.1em var(--color-base));
+  filter: drop-shadow(0 0 0.2em var(--color-base))
+    drop-shadow(0 0 0.1em var(--color-base));
   border: none;
   outline: none;
 }
-a:active{
+a:active {
   color: inherit;
 }
-*:focus{
+*:focus {
   outline: none;
 }
 .glow {
-  transition: .2s;
+  transition: 0.2s;
 }
 .glow:hover * {
   stroke: white;
-  filter: drop-shadow(0 0 0.2em var(--color-base)) drop-shadow(0 0 0.1em var(--color-base));
+  filter: drop-shadow(0 0 0.2em var(--color-base))
+    drop-shadow(0 0 0.1em var(--color-base));
 }
-.glow:active{
+.glow:active {
   color: inherit;
 }
 .gradient {
-  background-image:
-    repeating-linear-gradient(
-      45deg,
-      yellow,
-      yellow 10px,
-      red 10px,
-      red 20px /* determines size */
-    );
+  background-image: repeating-linear-gradient(
+    45deg,
+    yellow,
+    yellow 10px,
+    red 10px,
+    red 20px /* determines size */
+  );
 }
 :root {
-  --color-base: #D4213D;
-  --color-green1: #21D444;
-  --color-green2: #00871A;
-  --color-red1: #FF415F;
-  --color-red2: #870B1E;
-  --color-purple: #D018E1;
-  --color-blue: #0E6387;
+  --color-base: #d4213d;
+  --color-green1: #21d444;
+  --color-green2: #00871a;
+  --color-red1: #ff415f;
+  --color-red2: #870b1e;
+  --color-purple: #d018e1;
+  --color-blue: #0e6387;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 0.2s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
-.blink-enter-active, .blink-leave-active {
+.blink-enter-active,
+.blink-leave-active {
   transition: opacity 2s;
 }
-.blink-enter *, .blink-leave-to {
+.blink-enter *,
+.blink-leave-to {
   opacity: 0;
 }
 @keyframes rotate360 {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .tooltip {
@@ -197,35 +198,34 @@ svg:hover {
   color: black;
   padding: 24px;
   border-radius: 5px;
-  box-shadow: 0 5px 30px hsla(0, 0%, 0%, .2);
+  box-shadow: 0 5px 30px hsla(0, 0%, 0%, 0.2);
 }
 
 .tooltip.popover .popover-arrow {
   border-color: #f9f9f9;
 }
 
-.tooltip[aria-hidden='true'] {
+.tooltip[aria-hidden="true"] {
   visibility: hidden;
   opacity: 0;
-  transition: opacity .15s, visibility .15s;
+  transition: opacity 0.15s, visibility 0.15s;
 }
 
-.tooltip[aria-hidden='false'] {
+.tooltip[aria-hidden="false"] {
   visibility: visible;
   opacity: 1;
-  transition: opacity .15s;
+  transition: opacity 0.15s;
 }
 
 @media screen and (max-device-aspect-ratio: 1/1) {
-  body{
+  body {
     font-size: 3.5vmin;
   }
   .list-hidden {
     visibility: hidden;
   }
-  svg{
+  svg {
     stroke-width: 3.5vmin;
   }
 }
-
 </style>
