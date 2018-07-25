@@ -54,7 +54,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .numery * {
   padding: 0em 0.5em;
 }
@@ -172,7 +172,7 @@ a {
 }
 
 a.router-link-exact-active {
-  box-shadow: 0 0 0 1vmin var(--color-base) inset;
+  box-shadow: 0 0 0 1vmin $color-base inset;
 }
 
 .wrap {

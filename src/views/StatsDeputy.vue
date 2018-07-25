@@ -24,7 +24,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .deputy {
   background: #191940;
   border-radius: 0.5em;

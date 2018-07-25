@@ -62,7 +62,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .voting {
   display: flex;
   background: #444;
@@ -193,7 +193,7 @@ svg#deputies-graph {
   width: 100%;
 }
 
-@media screen and (max-device-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 1/1) {
   .voting {
     width: 100vw;
   }

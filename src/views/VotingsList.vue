@@ -23,7 +23,7 @@
     </v-popover>
 
     <v-popover offset="16">
-      <div v-tooltip="'Sortowanie'" class="tooltip-target b3 glow">
+      <div v-tooltip="'Sortowanie'" class="sortowanie tooltip-target b3 glow">
         <font-awesome-icon v-if="sortowanie === 'data'" icon="calendar" />
         <font-awesome-icon v-if="sortowanie === 'frekwencja'" icon="users" />
         <font-awesome-icon v-if="sortowanieKierunek === 'rosnaco'" icon="sort-up" />
@@ -259,8 +259,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .voting-menu {
   display: flex;
   flex-direction: column;
@@ -285,7 +284,9 @@ export default {
   height: 10vmin;
   user-select: none;
 }
-
+.sortowanie svg:last-child {
+  color: white;
+}
 .b3 {
   display: flex;
   justify-content: center;
@@ -296,7 +297,6 @@ export default {
   cursor: pointer;
   box-sizing: border-box;
 }
-
 .b3 svg {
   height: 8vmin;
   width: 8vmin;
@@ -310,6 +310,7 @@ span {
 
 .b3 * {
   position: absolute;
+  z-index: 99;
 }
 
 .tooltip-inner label {
@@ -368,7 +369,7 @@ input[type="radio"] {
   transition: none;
 }
 
-@media screen and (max-device-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 1/1) {
   .voting-menu {
     position: fixed;
   }

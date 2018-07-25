@@ -65,12 +65,6 @@
     </a>
     <a target="_blank" href="http://www.latofonts.com/">Lato</a>
   </div>
-  <div class="">
-    <h2>Najlepsze rezultaty na</h2>
-    <a href="https://www.mozilla.org/pl/firefox/new/">
-      <img src="https://www.mozilla.org/media/img/logos/firefox/logo-quantum-wordmark-white.bd1944395fb6.png" alt="">
-    </a>
-  </div>
   <div class="brands">
     <h2>Media o projekcie</h2>
     <a href="http://antyweb.pl/wybornie-org-glosuj-na-projekty-ustaw/"><img src="https://static01.helion.com.pl/helion/img/rozne/patroni/PODSTA/AW_logo.jpg" alt=""></a>
@@ -114,7 +108,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .home {
   display: flex;
   flex-direction: column;
@@ -202,14 +196,14 @@ video {
   display: flex;
   align-items: center;
   color: white;
-  background: var(--color-base);
+  background: $color-base;
   padding: 0.5em;
   border-radius: 1vmin;
 }
 
 .aplikacja:hover {
   background: white;
-  color: var(--color-base);
+  color: $color-base;
 }
 
 div {
@@ -233,7 +227,7 @@ img {
 }
 
 .donation {
-  background: var(--color-base);
+  background: $color-base;
   color: white;
   box-sizing: border-box;
   padding: 3em;

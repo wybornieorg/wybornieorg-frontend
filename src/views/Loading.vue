@@ -58,7 +58,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 div {
   word-wrap: break-word;
 }
@@ -115,6 +115,6 @@ div {
 .button-confirm {
   cursor: pointer;
   font-size: 3em;
-  color: var(--color-base);
+  color: $color-base;
 }
 </style>

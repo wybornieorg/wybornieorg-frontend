@@ -123,7 +123,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .stats {
   display: flex;
   flex-direction: row;

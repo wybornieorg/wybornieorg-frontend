@@ -102,7 +102,7 @@ export default {
   }
 }
 
-@media screen and (max-device-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 1/1) {
   #main-app {
     flex-direction: column;
   }

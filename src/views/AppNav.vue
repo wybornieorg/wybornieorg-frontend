@@ -8,6 +8,9 @@
     <font-awesome-icon v-tooltip="menu.name" :icon="menu.icon" @click="menu.emitEvent" />
   </div>
 
+  <div id="listBtn" class="glow">
+    <font-awesome-icon v-tooltip="'Lista głosowań'" icon="bars" @click="$emit('votingList')" />
+  </div>
   <div>
     <router-link :to="{ name: 'loading', params: {dane: this.userVotes} }">
       <font-awesome-icon v-tooltip="'Zapisz swoje głosy'" icon="save" />
@@ -70,7 +73,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .app-nav {
   display: flex;
   flex-direction: column;
@@ -106,11 +109,7 @@ export default {
   width: 8vmin;
 }
 
-#listBtn {
-  display: none;
-}
-
-@media screen and (max-device-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 1/1) {
   .app-nav {
     position: sticky;
     top: 0;
@@ -122,7 +121,7 @@ export default {
   }
 }
 
-@media screen and (min-device-aspect-ratio: 1/1) {
+@media screen and (min-aspect-ratio: 1/1) {
   .app-nav {
     height: 100vh;
   }

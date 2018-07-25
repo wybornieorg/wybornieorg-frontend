@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+<div id="app">
+  <router-view/>
+</div>
 </template>
 
 <style lang="scss">
@@ -29,13 +29,11 @@ a {
   text-decoration: none;
   font-weight: bold;
   outline: none;
-  color: var(--color-base);
+  color: $color-base;
   transition: 0.2s;
 }
 a:hover {
-  color: white;
-  filter: drop-shadow(0 0 0.2em var(--color-base))
-    drop-shadow(0 0 0.1em var(--color-base));
+  // color: white;
   border: none;
   outline: none;
 }
@@ -50,8 +48,6 @@ a:active {
 }
 .glow:hover * {
   stroke: white;
-  filter: drop-shadow(0 0 0.2em var(--color-base))
-    drop-shadow(0 0 0.1em var(--color-base));
 }
 .glow:active {
   color: inherit;
@@ -64,15 +60,6 @@ a:active {
     red 10px,
     red 20px /* determines size */
   );
-}
-:root {
-  --color-base: #d4213d;
-  --color-green1: #21d444;
-  --color-green2: #00871a;
-  --color-red1: #ff415f;
-  --color-red2: #870b1e;
-  --color-purple: #d018e1;
-  --color-blue: #0e6387;
 }
 
 .fade-enter-active,
@@ -112,15 +99,9 @@ a:active {
 
 svg {
   min-width: 2em;
-  /* stroke-width: 2vmin; */
-  color: var(--color-base);
-  fill: var(--color-base);
-  /* fill: transparent; */
-  /* color: transparent; */
+  color: $color-base;
 }
 svg:hover {
-  color: white;
-  fill: white;
 }
 
 .tooltip .tooltip-arrow {
@@ -217,7 +198,7 @@ svg:hover {
   transition: opacity 0.15s;
 }
 
-@media screen and (max-device-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 1/1) {
   body {
     font-size: 3.5vmin;
   }

@@ -206,7 +206,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang="scss">
 .voting {
   display: flex;
   background: #444;
@@ -316,7 +316,8 @@ h3 {
 .vote-button svg {
   width: 7vmin;
   height: 7vmin;
-  stroke: white;
+  fill: white;
+  color: white;
 }
 
 #deputies {
@@ -337,7 +338,7 @@ svg#deputies-graph {
   width: 100%;
 }
 
-@media screen and (max-device-aspect-ratio: 1/1) {
+@media screen and (max-aspect-ratio: 1/1) {
   .voting {
     width: 100vw;
   }
