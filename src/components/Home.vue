@@ -2,19 +2,10 @@
 <div class="home">
   <div class="header">
     <div class="logo center">
-      <a href="/"><img src="/static/img/icons/logo.svg" alt=""> wybornie.org</a>
+      <a href="/"><img src="/static/img/icons/logo.svg" alt="">wybornie.org</a>
       <div class="social-links">
-        <a v-tooltip.bottom="'Facebook'" target="_blank" href="https://www.facebook.com/wybornieorg">
-          <font-awesome-icon :icon="['fab', 'facebook']" />
-        </a>
-        <a v-tooltip.bottom="'Github'" target="_blank" href="https://github.com/wybornieorg">
-          <font-awesome-icon :icon="['fab', 'github']" />
-        </a>
-        <a v-tooltip.bottom="'Trello'" target="_blank" href="https://trello.com/wybornieorg">
-          <font-awesome-icon :icon="['fab', 'trello']" />
-        </a>
-        <a v-tooltip.bottom="'Discord'" target="_blank" href="https://discord.gg/M4xp9NZ">
-          <font-awesome-icon :icon="['fab', 'discord']" />
+        <a v-for="(link, index) in socialLinks" v-tooltip.bottom="link.name" target="_blank" :href="link.href">
+          <font-awesome-icon :icon="['fab', link.name]" />
         </a>
       </div>
     </div>
@@ -22,7 +13,7 @@
   </div>
   <div class="info gradient">
     <div class="info-inside">
-      <font-awesome-icon :icon="['fas', 'wrench']" />Strona jest w budowie, jeśli jest błąd lub masz pomysł jak ją ulepszyć - <a href="mailto:kontakt@fraunos.pl">skontaktuj się</a>!
+      <font-awesome-icon icon="wrench" />Strona jest w budowie, jeśli jest błąd lub masz pomysł jak ją ulepszyć - <a href="mailto:kontakt@fraunos.pl">skontaktuj się</a>!
     </div>
   </div>
   <video src="https://fraunos.keybase.pub/wybornieorg/wybornie.webm" controls controlsList="nodownload"></video>
@@ -79,18 +70,38 @@
     <a href="http://antyweb.pl/wybornie-org-glosuj-na-projekty-ustaw/"><img src="https://static01.helion.com.pl/helion/img/rozne/patroni/PODSTA/AW_logo.jpg" alt=""></a>
   </div>
   <div class="donation">
-    <font-awesome-icon class="heart" :icon="['fas', 'heart']" />
+    <font-awesome-icon class="heart" icon="heart" />
     <h3>Serwis wybornie.org jest udostępniany <i>pro bono</i>, na zawsze za darmo. Możesz wesprzeć projekt wpłacając drobną kwotę na podany numer konta:</h3> Michał Wołoszyn, tytułem: wybornie, 30 1160 2202 0000 0002 9120 5807
   </div>
 </div>
 </template>
 
 <script>
-import About from '@/components/About'
-
 export default {
-  components: {
-    About
+  data() {
+    return {
+      socialLinks: [{
+        name: 'facebook',
+        href: 'https://www.facebook.com/wybornieorg'
+      },
+    {
+      name: 'github',
+      href: 'https://github.com/wybornieorg'
+    },
+    {
+      name: 'trello',
+      href: 'https://trello.com/wybornieorg'
+    },
+    {
+      name: 'keybase',
+      href: 'https://keybase.io/team/wybornieorg'
+    },
+    {
+      name: 'discord',
+      href: 'https://discord.gg/M4xp9NZ'
+    }
+  ]
+    }
   }
 }
 </script>

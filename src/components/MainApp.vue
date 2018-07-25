@@ -22,9 +22,7 @@
 
 <script>
 import Popup from '@/components/generic/Popup'
-import AppFooter from '@/components/AppFooter'
 import Stats from '@/components/Stats'
-import About from '@/components/About'
 import Voting from '@/components/Voting'
 import VotingsList from '@/components/VotingsList'
 import AppNav from '@/components/AppNav'
@@ -35,8 +33,6 @@ export default {
     Popup,
     AppNav,
     Stats,
-    About,
-    AppFooter,
     Voting,
     VotingsList
   },

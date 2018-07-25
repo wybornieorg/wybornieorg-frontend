@@ -1,23 +1,13 @@
 <template>
 <div class="app-nav">
   <div>
-    <!--  -->
     <router-link class="logo" :to="{ name: 'home' }"><img src="/static/img/icons/logo.svg" alt="wybornie"></router-link>
   </div>
 
-  <!-- <div  id="logo" @click="$emit('ostronie')" @mouseover="wybornie = true" @mouseleave="wybornie = false"></div> -->
-  <div class="glow">
-    <font-awesome-icon v-tooltip="'Statystyki'" icon="chart-bar" @click="$emit('staty')" />
+  <div v-for="(menu, index) in menus" :key="index" class="glow">
+    <font-awesome-icon v-tooltip="menu.name" :icon="menu.icon" @click="menu.emitEvent" />
   </div>
-  <div class="glow">
-    <font-awesome-icon v-tooltip="'Poprzednie głosowanie'" icon="arrow-circle-left" @click="switchVoting(-1)" />
-  </div>
-  <div class="glow">
-    <font-awesome-icon v-tooltip="'Następne głosowanie'" icon="arrow-circle-right" @click="switchVoting(1)" />
-  </div>
-  <div id="listBtn" class="glow">
-    <font-awesome-icon icon="bars" @click="$emit('votingList')" />
-  </div>
+
   <div>
     <router-link :to="{ name: 'loading', params: {dane: this.userVotes} }">
       <font-awesome-icon v-tooltip="'Zapisz swoje głosy'" icon="save" />
@@ -29,29 +19,49 @@
 <script>
 export default {
   name: 'app-nav',
-  data () {
-    return {}
+  data() {
+    return {
+      menus: [{
+          name: 'Statystyki',
+          icon: 'chart-bar',
+          emitEvent: () => this.$emit('staty')
+        },
+        {
+          name: 'Poprzednie głosowanie',
+          icon: 'arrow-circle-left',
+          emitEvent: () => this.switchVoting(-1)
+        },
+        {
+          name: 'Następne głosowanie',
+          icon: 'arrow-circle-right',
+          emitEvent: () => this.switchVoting(1)
+        }
+      ]
+    }
   },
-  mounted () {
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        this.switchVoting(-1)
-      }
-      if (event.key === 'ArrowRight') {
-        this.switchVoting(1)
-      }
-    })
+  mounted() {
+    this.registerKbdHandlers()
   },
   computed: {
-    userVotes () {
+    userVotes() {
       return window.btoa(JSON.stringify(this.$store.state.userVotes))
     }
   },
   methods: {
-    switchVoting (direction) {
+    switchVoting(direction) {
       document.dispatchEvent(new CustomEvent('voteSwitch', {
         detail: direction
       }))
+    },
+    registerKbdHandlers() {
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowLeft') {
+          this.switchVoting(-1)
+        }
+        if (event.key === 'ArrowRight') {
+          this.switchVoting(1)
+        }
+      })
     }
   }
 }

@@ -5,29 +5,8 @@
 </template>
 
 <script>
-import MainApp from '@/components/MainApp'
-
 export default {
-  name: 'app',
-  components: {
-    MainApp
-  },
-  data () {
-    return {
-      showHello: true,
-      showStats: false,
-      showAbout: false,
-      showList: this.isMobile
-    }
-  },
-  computed: {
-    loading () {
-      return this.$store.state.loading
-    },
-    isMobile () {
-      return this.$store.getters.isMobile
-    }
-  }
+  name: 'app'
 }
 </script>
 

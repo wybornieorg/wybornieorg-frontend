@@ -10,46 +10,18 @@
       <h3>#{{project.drukNr}}</h3>
       <h3>{{project.tytul}}</h3>
       <p>{{project.opis}}</p>
-      <!-- <p>{{project.deputies.length}}</p> -->
-      <div class="link">
-        <a target="_blank" :href="project.przebiegLink">
-          <font-awesome-icon icon="bolt" />przebieg projektu
-          <font-awesome-icon icon="external-link-alt" />
-        </a>
-      </div>
-      <div class="link">
-        <a target="_blank" :href="project.trescLink">
-          <font-awesome-icon icon="file-alt" />treść projektu
-          <font-awesome-icon icon="external-link-alt" />
-        </a>
-        <a target="_blank" :href="project.drukPdfLink + '#search=UZASADNIENIE'" title="Działa wyłącznie na Mozilla Firefox">
-          <font-awesome-icon icon="file-pdf" />uzasadnienie
-          <font-awesome-icon icon="external-link-alt" />
-        </a>
-      </div>
-      <div class="link">
-        <a target="_blank" :href="project.isapLink">
-          <font-awesome-icon icon="file" />ISAP tekst ustawy
-          <font-awesome-icon icon="external-link-alt" />
-        </a>
-      </div>
-      <div class="link" v-if="project.komisje">
-        <a target="_blank" :href="project.komisje">
-          <font-awesome-icon icon="comments" />Komisje i podkomisje
-          <font-awesome-icon icon="external-link-alt" />
-        </a>
-      </div>
-      <div class="link">
-        <a target="_blank" :href="mediaLink(project.tytul)">
-          <font-awesome-icon icon="tv" />media o projekcie
+
+      <div v-for="(link, index) in links" :key="index" class="link" v-if="project[link.key] || link.href">
+        <a target="_blank" :href="project[link.key] || link.href(project)">
+          <font-awesome-icon :icon="link.icon" />{{link.name}}
           <font-awesome-icon icon="external-link-alt" />
         </a>
       </div>
     </div>
 
-    <div class="voting-data">
-      <mam-prawo-wiedziec v-if="currentVoting.mpw" :mpw="currentVoting.mpw"></mam-prawo-wiedziec>
+    <mam-prawo-wiedziec v-if="currentVoting.mpw" :mpw="currentVoting.mpw"></mam-prawo-wiedziec>
 
+    <div class="voting-data">
       <h2>Dane głosowania</h2>
       <p>{{currentVoting.status}} {{votingTime.calendar().toLowerCase()}}</p>
       <p>frekwencja {{Math.floor(currentVoting.frekwencja*100)}}%</p>
@@ -76,30 +48,7 @@
       </div>
     </div>
 
-    <div v-if="currentVoting.frekwencja" id="svg-container">
-      <svg id="deputies-graph" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 220 130">
-            <text text-anchor="middle" dominant-baseline="hanging" x="0" y="0" font-family="mono" font-weight="bold" font-size="10" stroke="none" fill="black">{{currentVoting.drukNr}}</text>
-            <g>
-              <deputy v-for="(deputy, index) in currentVoting.deputies" :key="index" :singleDeputy='deputy' :cx="placeX(index)" :cy="placeY(index)" :i="index"></deputy>
-            </g>
-            <g>
-              <text x='5' y='125' font-size="8" stroke-width="5" stroke-linejoin="bevel" stroke-linecap="round" stroke="darkorchid" fill="white">Wstrzymał się</text>
-              <text x='5' y='125' font-size="8" stroke="none" fill="white">Wstrzymał się</text>
-
-              <text x='73' y='125' font-size="8" stroke-width="5" stroke-linejoin="bevel" stroke-linecap="round" stroke="black" fill="white">Nieobecny</text>
-              <text x='73' y='125' font-size="8" stroke="none" fill="white">Nieobecny</text>
-
-              <text x='130' y='125' font-size="8" stroke-width="5" stroke-linejoin="bevel" stroke-linecap="round" stroke="green" fill="white">Zgodny</text>
-              <text x='130' y='125' font-size="8" stroke="none" fill="white">Zgodny</text>
-
-              <text x='174' y='125' font-size="8" stroke-width="5" stroke-linejoin="bevel" stroke-linecap="round" stroke="red" fill="white">Niezgodny</text>
-              <text x='174' y='125' font-size="8" stroke="none" fill="white">Niezgodny</text>
-            </g>
-          </svg>
-    </div>
-    <div v-else>
-      <h2>Brak imiennych wyników głosowania!</h2>
-    </div>
+    <deputies :currentVoting="currentVoting"></deputies>
 
   </div>
 
@@ -107,36 +56,57 @@
 </template>
 
 <script>
-import Deputy from '@/components/Deputy'
+import Deputies from '@/components/Deputies'
 import MamPrawoWiedziec from '@/components/MamPrawoWiedziec'
 
 export default {
   name: 'voting',
   props: ['kadencja', 'posiedzenie', 'glosowanie'],
-  data () {
+  data() {
     return {
+      links: [{
+          key: 'przebiegLink',
+          name: 'przebieg projektu',
+          icon: 'bolt'
+        },
+        {
+          key: 'trescLink',
+          name: 'treść projektu',
+          icon: 'file-alt'
+        },
+        {
+          href: (a) => a.drukPdfLink + '#search=UZASADNIENIE',
+          name: 'uzasadnienie',
+          icon: 'file-pdf'
+        },
+        {
+          key: 'isapLink',
+          name: 'ISAP tekst ustawy',
+          icon: 'file'
+        },
+        {
+          key: 'komisje',
+          name: 'komisje i podkomisje',
+          icon: 'comments'
+        },
+        {
+          href: (a) => this.mediaLink(a.tytul),
+          name: 'media o projekcie',
+          icon: 'tv'
+        }
+      ],
       s1: 10 // ilość osób w kolumnie
     }
   },
   components: {
     MamPrawoWiedziec,
-    Deputy
+    Deputies
   },
-  mounted () {
+  mounted() {
     this.fetchVoting()
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowUp') {
-        event.preventDefault()
-        this.userVote(true)
-      }
-      if (event.key === 'ArrowDown') {
-        event.preventDefault()
-        this.userVote(false)
-      }
-    })
+    this.registerKbdHandlers()
   },
-  updated () {
+  updated() {
     document.querySelector('#scrollable-container').scrollTo({
       top: document.querySelector('.router-link-exact-active').offsetTop - document.querySelector('.router-link-exact-active').clientHeight,
       behavior: 'smooth'
@@ -153,21 +123,33 @@ export default {
     }
   },
   computed: {
-    votingTime () {
+    votingTime() {
       return this.moment(new Date(this.currentVoting.votingDate))
     },
-    currentVotingVote () {
+    currentVotingVote() {
       return this.$store.state.userVotes[`${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`]
     },
-    userVotes () {
+    userVotes() {
       return this.$store.state.userVotes
     },
-    currentVoting () {
+    currentVoting() {
       return this.$store.getters.currentVoting(`${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`)
     }
   },
   methods: {
-    userVote (vote) {
+    registerKbdHandlers() {
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowUp') {
+          event.preventDefault()
+          this.userVote(true)
+        }
+        if (event.key === 'ArrowDown') {
+          event.preventDefault()
+          this.userVote(false)
+        }
+      })
+    },
+    userVote(vote) {
       this.$store.commit('userVote', {
         numbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`,
         vote: vote
@@ -177,15 +159,8 @@ export default {
         behavior: 'smooth'
       })
     },
-    placeX (x) {
-      let result = 110 + -Math.cos((Math.floor(x / this.s1) * this.s1) * (Math.PI / 450)) * Math.cos(((x % this.s1) + 18) * (Math.PI / 70)) * 150
-      return result
-    },
-    placeY (y) {
-      let result = 5 + Math.sin((Math.floor(y / this.s1) * this.s1) * (Math.PI / 450)) * Math.cos(((y % this.s1) + 18) * (Math.PI / 70)) * 150
-      return result
-    },
-    fetchVoting () {
+
+    fetchVoting() {
       if (!this.currentVoting && this.posiedzenie && this.glosowanie) {
         this.$store.commit('loadingUp')
         this.$http.get(this.$store.state.domain + '/dev/glosowania/' + `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`).then(response => {
@@ -200,7 +175,7 @@ export default {
         })
       }
     },
-    mediaLink (tytul) {
+    mediaLink(tytul) {
       let result = ''
       try {
         result = 'https://encrypted.google.com/search?q=' + tytul.replace(/ /g, '+').replace(/"/g, '') + '&tbm=nws'
