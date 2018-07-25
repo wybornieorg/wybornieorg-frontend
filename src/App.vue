@@ -111,13 +111,15 @@ a:active{
 
 svg {
   min-width: 2em;
-  stroke-width: 2vmin;
-  stroke: var(--color-base);
-  fill: transparent;
-  color: transparent;
+  /* stroke-width: 2vmin; */
+  color: var(--color-base);
+  fill: var(--color-base);
+  /* fill: transparent; */
+  /* color: transparent; */
 }
 svg:hover {
-  stroke: white;
+  color: white;
+  fill: white;
 }
 
 .tooltip .tooltip-arrow {

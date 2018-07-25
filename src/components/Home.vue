@@ -233,6 +233,7 @@ img {
 }
 
 .heart {
-  stroke: white;
+  color: white;
+  fill: white;
 }
 </style>
