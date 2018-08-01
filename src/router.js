@@ -2,7 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import MainApp from "./views/MainApp";
 import Home from "./views/Home";
-import Voting from "./views/Voting";
+import Voting from "./components/Voting";
 import NotFound from "./views/NotFound";
 import Loading from "./views/Loading";
 

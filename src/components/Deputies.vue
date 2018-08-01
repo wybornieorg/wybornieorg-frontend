@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import Deputy from "@/views/Deputy";
+import Deputy from "@/components/Deputy";
 
 export default {
   name: "deputies",

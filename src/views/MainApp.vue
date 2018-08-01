@@ -21,11 +21,11 @@
 </template>
 
 <script>
-import Popup from "@/views/generic/Popup";
-import Stats from "@/views/Stats";
-import Voting from "@/views/Voting";
-import VotingsList from "@/views/VotingsList";
-import AppNav from "@/views/AppNav";
+import Popup from "@/components/generic/Popup";
+import Stats from "@/components/Stats";
+import Voting from "@/components/Voting";
+import VotingsList from "@/components/VotingsList";
+import AppNav from "@/components/AppNav";
 
 export default {
   name: "mainapp",

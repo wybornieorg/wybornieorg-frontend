@@ -112,9 +112,9 @@
 </template>
 
 <script>
-import VotingsListItem from "@/views/VotingsListItem";
-import AppNav from "@/views/AppNav";
-import Popup from "@/views/generic/Popup";
+import VotingsListItem from "@/components/VotingsListItem";
+import AppNav from "@/components/AppNav";
+import Popup from "@/components/generic/Popup";
 
 export default {
   name: "votings-list",

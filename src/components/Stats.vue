@@ -14,8 +14,7 @@
 </template>
 
 <script>
-import StatsDeputy from "@/views/StatsDeputy";
-import AppNav from "@/views/AppNav";
+import StatsDeputy from "@/components/StatsDeputy";
 
 export default {
   data() {
@@ -25,8 +24,7 @@ export default {
     };
   },
   components: {
-    StatsDeputy,
-    AppNav
+    StatsDeputy
   },
   created() {
     this.checkCache();

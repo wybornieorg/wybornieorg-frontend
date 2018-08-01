@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import Deputies from "@/views/Deputies";
-import MamPrawoWiedziec from "@/views/MamPrawoWiedziec";
+import Deputies from "@/components/Deputies";
+import MamPrawoWiedziec from "@/components/MamPrawoWiedziec";
 
 export default {
   name: "voting",
