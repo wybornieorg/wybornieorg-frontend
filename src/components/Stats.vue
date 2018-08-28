@@ -51,36 +51,12 @@ export default {
     // }
   },
   methods: {
-    checkCache() {
-      this.$store.commit("loadingUp");
-      let promise = [];
-
-      for (let numbers in this.userVotes) {
-        let voting = this.$store.getters.currentVoting(numbers);
-        if (voting === undefined) {
-          promise.push(
-            this.$http.get(
-              this.$store.state.domain + "/dev/glosowania/" + numbers
-            )
-          );
-        }
-      }
-      if (promise !== []) {
-        Promise.all(promise).then(resolve => {
-          for (var response of resolve) {
-            this.$store.commit("adjustVotes", response.data);
-            this.$store.commit("cacheVoting", {
-              numbers: `${response.data.numbers.kadencja}/${
-                response.data.numbers.posiedzenie
-              }/${response.data.numbers.glosowanie}`,
-              data: response.data
-            });
-          }
-          this.getDeputiesStats();
-        });
-      }
+    async checkCache() {
+      await this.$store.dispatch("fetchVotingsBulk");
+      this.getDeputiesStats();
     },
     getDeputiesStats() {
+      this.$store.commit("loadingUp");
       for (let numbers in this.userVotes) {
         let voting = this.$store.getters.currentVoting(numbers);
 

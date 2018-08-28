@@ -54,6 +54,34 @@ export default new Vuex.Store({
             commit("loadingDown");
           });
       }
+    },
+    async fetchVotingsBulk({ state, commit }) {
+      commit("loadingUp");
+      let fetchList = [];
+
+      for (let numbers in state.userVotes) {
+        let voting = this.getters.currentVoting(numbers);
+        if (voting === undefined) {
+          fetchList.push(numbers);
+        }
+      }
+      if (fetchList !== []) {
+        let response = await axios.get(
+          state.domain +
+            "/dev/glosowaniaBulk/" +
+            window.btoa(JSON.stringify(fetchList))
+        );
+        for (var voting of response.data) {
+          commit("adjustVotes", voting);
+          commit("cacheVoting", {
+            numbers: `${voting.numbers.kadencja}/${
+              voting.numbers.posiedzenie
+            }/${voting.numbers.glosowanie}`,
+            data: voting
+          });
+        }
+      }
+      commit("loadingDown");
     }
   },
   getters: {
