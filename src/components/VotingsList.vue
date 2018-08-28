@@ -138,7 +138,7 @@ export default {
   },
   watch: {
     kadencje: function() {
-      this.$router.push({
+      this.$router.replace({
         name: "voting",
         params: {
           kadencja: this.kadencje
