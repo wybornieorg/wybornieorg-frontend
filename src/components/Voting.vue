@@ -166,27 +166,10 @@ export default {
         behavior: "smooth"
       });
     },
-
     fetchVoting() {
-      if (!this.currentVoting && this.posiedzenie && this.glosowanie) {
-        this.$store.commit("loadingUp");
-        this.$http
-          .get(
-            this.$store.state.domain +
-              "/dev/glosowania/" +
-              `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`
-          )
-          .then(response => {
-            this.$store.commit("adjustVotes", response.data);
-            this.$store.commit("cacheVoting", {
-              numbers: `${this.kadencja}/${this.posiedzenie}/${
-                this.glosowanie
-              }`,
-              data: response.data
-            });
-            this.$store.commit("loadingDown");
-          });
-      }
+      this.$store.dispatch("fetchVoting", {
+        votingNumbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`
+      });
     },
     mediaLink(tytul) {
       let result = "";

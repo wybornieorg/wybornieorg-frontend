@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from "axios";
 
 Vue.use(Vuex);
 export default new Vuex.Store({
@@ -38,7 +39,23 @@ export default new Vuex.Store({
       return props;
     }
   },
-  actions: {},
+  actions: {
+    fetchVoting({ commit, state }, props) {
+      if (props.votingNumbers.indexOf("undefined") === -1) {
+        commit("loadingUp");
+        axios
+          .get(state.domain + "/dev/glosowania/" + props.votingNumbers)
+          .then(response => {
+            commit("adjustVotes", response.data);
+            commit("cacheVoting", {
+              numbers: props.votingNumbers,
+              data: response.data
+            });
+            commit("loadingDown");
+          });
+      }
+    }
+  },
   getters: {
     isMobile: () => {
       return window.innerHeight / window.innerWidth > 1;
