@@ -191,7 +191,7 @@ export default {
   },
   mounted() {
     if (this.kadencje === undefined) {
-      this.kadencje = 8;
+      this.kadencje = 9;
     } else {
       this.fetchVotings(this.kadencje);
     }
