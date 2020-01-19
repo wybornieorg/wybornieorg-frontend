@@ -15,7 +15,7 @@
       </div>
 
       <template slot="popover">
-          <div v-for="(item, index) in [3, 4, 5, 6, 7, 8].reverse()" :key="index">
+          <div v-for="(item, index) in [3, 4, 5, 6, 7, 8, 9].reverse()" :key="index">
             <input v-close-popover :id="'k' + item" type="radio" :value="item" v-model="kadencje">
             <label :for="'k' + item">{{item}}</label>
           </div>
