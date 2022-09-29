@@ -11,6 +11,7 @@ script:
 deploy:
   - provider: pages
     repo: wybornieorg/wybornieorg.github.io
+    fqdn: wybornie.org
     skip-cleanup: true
     keep-history: false
     target-branch: master
