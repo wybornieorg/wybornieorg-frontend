@@ -6,8 +6,13 @@
 </template>
 
 <script>
+import { useMainStore } from '@/store';
+
 export default {
   props: ["singleDeputy", "cx", "cy", "i"],
+  setup() {
+    return { store: useMainStore() };
+  },
   data() {
     return {
       r: 15,
@@ -17,14 +22,11 @@ export default {
   },
   computed: {
     currentVotingVote() {
-      return this.$store.state.userVotes[
-        `${this.$route.params.kadencja}/${this.$route.params.posiedzenie}/${
-          this.$route.params.glosowanie
-        }`
-      ];
+      const p = this.$route.params;
+      return this.store.userVotes[`${p.kadencja}/${p.posiedzenie}/${p.glosowanie}`];
     },
     isMobile() {
-      return this.$store.getters.isMobile;
+      return this.store.isMobile;
     },
     zgodnosc() {
       let deputyVote =
@@ -52,33 +54,17 @@ export default {
       } else {
         result = this.zgodnosc ? "zgodny" : "niezgodny";
       }
-      // if (this.singleDeputy.group === 'PiS') {
-      //   result += ' pis'
-      // } else if (this.singleDeputy.group === 'PO') {
-      //   result += ' po'
-      // } else if (this.singleDeputy.group === 'Kukiz15') {
-      //   result += ' kukiz'
-      // } else if (this.singleDeputy.group === 'N') {
-      //   result += ' nowoczesna'
-      // } else if (this.singleDeputy.group === 'PSL') {
-      //   result += ' psl'
-      // }
       return result;
     }
-  },
-  created() {
-    // this.fetchIMG()
   },
   methods: {
     fetchIMG() {
       return null;
     }
-  },
-  watch: {}
+  }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 div {
   width: 100px;
@@ -128,13 +114,8 @@ text {
 circle {
   stroke: none;
   stroke-width: 2;
-  /*transition: 0.5s;*/
   fill: #777;
 }
-
-/*circle:hover {
-  transform: scale(1.2, 1.2);
-}*/
 
 title {
   font-size: 24px;

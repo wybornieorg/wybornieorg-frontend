@@ -1,28 +1,30 @@
 <template>
 <div class="voting-menu">
   <popup v-if="dbUpdate" @close="dbUpdate = false">
-    <h1 slot="header"><font-awesome-icon icon="sync-alt" />Ups!</h1>
-    <div slot="content">
-      <h3>Właśnie trwa synchronizacja bazy danych <a href="wybornie.org">wybornie.org</a> ze stroną Sejmu!</h3>
+    <template #header>
+      <h1><font-awesome-icon icon="sync-alt" />Ups!</h1>
+    </template>
+    <template #content>
+      <h3>Właśnie trwa synchronizacja bazy danych <a href="https://wybornie.org">wybornie.org</a> ze stroną Sejmu!</h3>
       <p>Z tego powodu nie wszystkie funkcje są dostępne (brak niektórych głosowań, brak artykułów mamprawowiedziec.pl i nazw zwyczajowych). Jeśli Ci to przeszkadza, spróbuj odświeżyć stronę za 5 minut i skorzystaj kiedy przestanie się pojawiać to okno!</p>
       <strong>Nie zapomnij zapisać swoich głosów, usuną się, jeśli odświeżysz bez zapisania ich!</strong>
-    </div>
+    </template>
   </popup>
   <div class="sort-filter-menu">
-    <v-popover offset="16">
+    <VDropdown :distance="16" theme="popover">
       <div v-tooltip="'Kadencje'" class="tooltip-target b3 glow">
         <span>{{kadencje}}</span>
       </div>
 
-      <template slot="popover">
-          <div v-for="(item, index) in [3, 4, 5, 6, 7, 8, 9].reverse()" :key="index">
-            <input v-close-popover :id="'k' + item" type="radio" :value="item" v-model="kadencje">
+      <template #popper>
+          <div v-for="(item, index) in kadencjeOptions" :key="index">
+            <input v-close-popper :id="'k' + item" type="radio" :value="item" v-model="kadencje">
             <label :for="'k' + item">{{item}}</label>
           </div>
-        </template>
-    </v-popover>
+      </template>
+    </VDropdown>
 
-    <v-popover offset="16">
+    <VDropdown :distance="16" theme="popover">
       <div v-tooltip="'Sortowanie'" class="sortowanie tooltip-target b3 glow">
         <font-awesome-icon v-if="sortowanie === 'data'" icon="calendar" />
         <font-awesome-icon v-if="sortowanie === 'frekwencja'" icon="users" />
@@ -30,11 +32,11 @@
         <font-awesome-icon v-if="sortowanieKierunek === 'malejaco'" icon="sort-down" />
       </div>
 
-      <template slot="popover">
+      <template #popper>
           <div>
             <div>
               <input type="radio" id="malejaco" value="malejaco" v-model="sortowanieKierunek">
-        <label for="malejaco"><font-awesome-icon icon="sort-down" />malejąco</label>
+              <label for="malejaco"><font-awesome-icon icon="sort-down" />malejąco</label>
             </div>
             <div>
               <input type="radio" id="rosnaco" value="rosnaco" v-model="sortowanieKierunek">
@@ -43,23 +45,23 @@
           </div>
           <div>
             <div>
-              <input v-close-popover type="radio" id="data" value="data" v-model="sortowanie">
+              <input v-close-popper type="radio" id="data" value="data" v-model="sortowanie">
               <label for="data"><font-awesome-icon icon="calendar" />data</label>
             </div>
             <div>
-      <input v-close-popover type="radio" id="frekwencja" value="frekwencja" v-model="sortowanie">
+              <input v-close-popper type="radio" id="frekwencja" value="frekwencja" v-model="sortowanie">
               <label for="frekwencja"><font-awesome-icon icon="users" />frekwencja</label>
-  </div>
+            </div>
           </div>
-        </template>
-    </v-popover>
+      </template>
+    </VDropdown>
 
-    <v-popover offset="16">
+    <VDropdown :distance="16" theme="popover">
       <div v-tooltip="'Filtrowanie'" class="tooltip-target b3 glow">
         <font-awesome-icon icon="filter" />
       </div>
 
-      <template slot="popover">
+      <template #popper>
           <div class="filtrowanie-status">
             <div>
               <input id="uchwalonoCB" type="checkbox" value="uchwalono" v-model="filtrowanieStatus">
@@ -76,28 +78,28 @@
             <div>
               <input id="mamprawowiedziec" type="checkbox" value="mamprawowiedziec" v-model="filtrowanieMPW">
               <label for="mamprawowiedziec">#noweprawa
-<a target="_blank" href="http://serwis.mamprawowiedziec.pl/tag.php?tag=1&s=wchodzi%20w%20%C5%BCycie"><font-awesome-icon icon="external-link-alt" /></a>
-                </label>
+                <a target="_blank" href="http://serwis.mamprawowiedziec.pl/tag.php?tag=1&s=wchodzi%20w%20%C5%BCycie"><font-awesome-icon icon="external-link-alt" /></a>
+              </label>
             </div>
             <div>
               <input id="prawoUE" type="checkbox" v-model="filtrowanieUE">
               <label for="prawoUE">prawo UE</label>
             </div>
           </div>
-        </template>
-    </v-popover>
+      </template>
+    </VDropdown>
 
-    <v-popover offset="16" @show="focusSearch">
+    <VDropdown :distance="16" theme="popover" @show="focusSearch">
       <div v-tooltip="'Wyszukiwanie'" class="tooltip-target b3 glow search">
         <font-awesome-icon icon="search" />
       </div>
 
-      <template slot="popover">
+      <template #popper>
           <div class="filtrowanie-nazwa">
             <input type="text" id="filtrowanieNazwa" v-model="filtrowanieNazwa" placeholder="Filtruj tytuły, np. 'podatk'">
           </div>
-        </template>
-    </v-popover>
+      </template>
+    </VDropdown>
     <div class="center nowrap">
       Σ {{votingsProcessed.length}}
     </div>
@@ -112,26 +114,35 @@
 </template>
 
 <script>
-import VotingsListItem from "@/components/VotingsListItem";
-import AppNav from "@/components/AppNav";
-import Popup from "@/components/generic/Popup";
+import axios from 'axios';
+import { useMainStore } from '@/store';
+import VotingsListItem from '@/components/VotingsListItem.vue';
+import Popup from '@/components/generic/Popup.vue';
+
+// Used only when /dev/kadencje can't be reached.
+const FALLBACK_KADENCJE = [3, 4, 5, 6, 7, 8, 9, 10];
+const FALLBACK_DEFAULT_KADENCJA = 9;
 
 export default {
   name: "votings-list",
+  setup() {
+    return { store: useMainStore() };
+  },
   data() {
+    const routeKadencja = this.$route.params.kadencja;
     return {
       votings: [],
       dbUpdate: false,
       pagination: 0,
       itemsPerPage: 10,
       listHidden: true,
-      kadencje: this.$route.params.kadencja,
+      kadencje:
+        routeKadencja !== undefined ? parseInt(routeKadencja) : undefined,
       sortowanie: "data",
       filtrowanieStatus: ["odrzucony", "uchwalono"],
       filtrowanieUE: true,
       filtrowanieNazwane: false,
       filtrowanieMPW: false,
-      // filtrowanieGlos: ['za', 'przeciw'],
       sortowanieKierunek: "malejaco",
       filtrowanieNazwa: ""
     };
@@ -148,22 +159,35 @@ export default {
     },
     votingsProcessed: function() {
       this.pagination = 0;
-      document.querySelector("#scrollable-container").scrollTop = 0;
+      const container = document.querySelector("#scrollable-container");
+      if (container) {
+        container.scrollTop = 0;
+      }
     }
   },
   components: {
     Popup,
-    AppNav,
     VotingsListItem
   },
   computed: {
+    // Descending, so the newest term is at the top of the picker.
+    kadencjeOptions() {
+      const list = this.store.kadencjeList.length
+        ? this.store.kadencjeList
+        : FALLBACK_KADENCJE;
+      return [...list].sort((a, b) => b - a);
+    },
+    latestKadencja() {
+      return this.store.kadencjeList.length
+        ? Math.max(...this.store.kadencjeList)
+        : FALLBACK_DEFAULT_KADENCJA;
+    },
     votingsProcessed() {
       return this.votings
         .filter(item => {
-          // return this.kadencje.indexOf(item.kadencja) !== -1
           let result =
             this.filtrowanieStatus.indexOf(item.status) !== -1 &&
-            item.projects.every(a => {
+            (item.projects || []).every(a => {
               return (
                 a.tytul
                   .toLowerCase()
@@ -186,19 +210,21 @@ export default {
       return this.votingsProcessed.slice(0, 10 + 10 * this.pagination);
     },
     userVotes() {
-      return this.$store.state.userVotes;
+      return this.store.userVotes;
     }
   },
-  mounted() {
+  async mounted() {
+    await this.store.fetchKadencje();
     if (this.kadencje === undefined) {
-      this.kadencje = 9;
+      // Opens on the newest term the backend has data for.
+      this.kadencje = this.latestKadencja;
     } else {
       this.fetchVotings(this.kadencje);
     }
 
-    document
-      .querySelector("#scrollable-container")
-      .addEventListener("scroll", el => {
+    const container = document.querySelector("#scrollable-container");
+    if (container) {
+      container.addEventListener("scroll", el => {
         if (
           el.target.scrollTop /
             (el.target.scrollHeight - el.target.clientHeight) >
@@ -207,19 +233,23 @@ export default {
           this.pagination++;
         }
       });
+    }
     document.addEventListener("voteSwitch", ev => {
       this.switchVoting(ev.detail);
     });
   },
   methods: {
     fetchVotings(kadencja) {
-      this.$store.commit("loadingUp");
+      this.store.loadingUp();
       this.$http
-        .get(this.$store.state.domain + "/dev/glosowania/" + kadencja)
+        .get(this.store.domain + "/dev/glosowania/" + kadencja)
         .then(response => {
-          this.$store.commit("loadingDown");
+          this.store.loadingDown();
           this.dbUpdate = response.data.collectorStatus;
           this.votings = response.data.votings;
+        })
+        .catch(() => {
+          this.store.loadingDown();
         });
     },
     hideList() {
@@ -237,22 +267,26 @@ export default {
         );
       });
 
+      const target = self.votingsProcessed[currentVotingIndex + state];
+      if (!target) {
+        return;
+      }
+
       self.$router.push({
         name: "voting",
         params: {
-          kadencja:
-            self.votingsProcessed[currentVotingIndex + state].numbers.kadencja,
-          posiedzenie:
-            self.votingsProcessed[currentVotingIndex + state].numbers
-              .posiedzenie,
-          glosowanie:
-            self.votingsProcessed[currentVotingIndex + state].numbers.glosowanie
+          kadencja: target.numbers.kadencja,
+          posiedzenie: target.numbers.posiedzenie,
+          glosowanie: target.numbers.glosowanie
         }
       });
     },
     focusSearch() {
       setTimeout(() => {
-        document.querySelector("#filtrowanieNazwa").focus();
+        const el = document.querySelector("#filtrowanieNazwa");
+        if (el) {
+          el.focus();
+        }
       }, 100);
     }
   }
@@ -313,7 +347,7 @@ span {
   z-index: 99;
 }
 
-.tooltip-inner label {
+.v-popper__inner label {
   cursor: pointer;
 }
 
@@ -374,7 +408,7 @@ input[type="radio"] {
     position: fixed;
   }
 
-  .tooltip-inner * {
+  .v-popper__inner * {
     font-size: 5vmin;
   }
 }

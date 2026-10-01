@@ -34,16 +34,17 @@
 </template>
 
 <script>
+import { useMainStore } from '@/store';
+
 export default {
   name: "votings-list-item",
   props: ["voting", "id"],
-  data() {
-    return {};
+  setup() {
+    return { store: useMainStore() };
   },
-  components: {},
   computed: {
     currentVotingVote() {
-      return this.$store.state.userVotes[
+      return this.store.userVotes[
         `${this.voting.numbers.kadencja}/${this.voting.numbers.posiedzenie}/${
           this.voting.numbers.glosowanie
         }`
@@ -53,7 +54,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .numery * {
   padding: 0em 0.5em;

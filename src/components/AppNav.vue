@@ -12,7 +12,7 @@
     <font-awesome-icon v-tooltip="'Lista głosowań'" icon="bars" @click="$emit('votingList')" />
   </div>
   <div>
-    <router-link :to="{ name: 'loading', params: {dane: this.userVotes} }">
+    <router-link :to="{ name: 'loading', params: {dane: userVotes} }">
       <font-awesome-icon v-tooltip="'Zapisz swoje głosy'" icon="save" />
     </router-link>
   </div>
@@ -20,8 +20,13 @@
 </template>
 
 <script>
+import { useMainStore } from '@/store';
+
 export default {
   name: "app-nav",
+  setup() {
+    return { store: useMainStore() };
+  },
   data() {
     return {
       menus: [
@@ -48,7 +53,7 @@ export default {
   },
   computed: {
     userVotes() {
-      return window.btoa(JSON.stringify(this.$store.state.userVotes));
+      return window.btoa(JSON.stringify(this.store.userVotes));
     }
   },
   methods: {

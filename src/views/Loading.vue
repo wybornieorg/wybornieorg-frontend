@@ -17,7 +17,6 @@
     <div v-else class="votes">
       <div v-for="(data, key, index) in daneP" :class="['vote', data === 1 ? 'za' : 'przeciw']" :key="index">
         {{key}}
-        <!-- <div @click="set(data, key)">{{key}}</div> -->
       </div>
     </div>
   </div>
@@ -25,14 +24,24 @@
 </template>
 
 <script>
+import { useMainStore } from '@/store';
+
 export default {
   props: ["dane"],
-  data() {
-    return {};
+  setup() {
+    return { store: useMainStore() };
   },
   computed: {
     daneP() {
-      let data = JSON.parse(window.atob(this.dane));
+      if (!this.dane) {
+        return {};
+      }
+      let data;
+      try {
+        data = JSON.parse(window.atob(this.dane));
+      } catch (e) {
+        return {};
+      }
       for (let variable in data) {
         data[variable] =
           data[variable] === "Za"
@@ -46,13 +55,10 @@ export default {
   },
   methods: {
     confirm() {
-      this.$store.commit("loadSavedData", this.daneP);
+      this.store.loadSavedData(this.daneP);
       this.$router.push({
         name: "voting"
       });
-    },
-    set(data, key) {
-      this.$set(this.daneP, key, data * -1);
     }
   }
 };
@@ -78,7 +84,6 @@ div {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  /* background-color: white; */
 }
 
 .votes-container {

@@ -1,28 +1,10 @@
-/* eslint-disable no-console */
-
-import { register } from "register-service-worker";
-
-if (process.env.NODE_ENV === "production") {
-  register(`${process.env.BASE_URL}service-worker.js`, {
-    ready() {
-      console.log(
-        "App is being served from cache by a service worker.\n" +
-          "For more details, visit https://goo.gl/AFskqB"
-      );
-    },
-    cached() {
-      console.log("Content has been cached for offline use.");
-    },
-    updated() {
-      console.log("New content is available; please refresh.");
-    },
-    offline() {
-      console.log(
-        "No internet connection found. App is running in offline mode."
-      );
-    },
-    error(error) {
-      console.error("Error during service worker registration:", error);
-    }
-  });
+// Service-worker registration is not wired up in the Vite build.
+//
+// The old vue-cli build used @vue/cli-plugin-pwa + register-service-worker.
+// To bring back offline support, add `vite-plugin-pwa` and register its
+// virtual module here, then call this from src/main.js.
+//
+// Left intentionally inert so it never silently references a missing package.
+export function registerServiceWorker() {
+  return undefined;
 }

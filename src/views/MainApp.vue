@@ -1,31 +1,32 @@
 <template>
 <div id="main-app">
-  <app-nav @staty="showStats = true" @votingList="showList = !showList" @ostronie="showAbout = !showAbout"></app-nav>
+  <app-nav @staty="showStats = true" @votingList="showList = !showList"></app-nav>
 
   <popup v-if="showStats" @close="showStats = false">
-    <h1 slot="header">Statystyki</h1>
-    <stats slot="content"></stats>
-  </popup>
-  <popup v-if="showAbout" @close="showAbout = false">
-    <h1 slot="header">O stronie <a href="/">wybornie.org</a>!</h1>
-    <about slot="content"></about>
+    <template #header>
+      <h1>Statystyki</h1>
+    </template>
+    <template #content>
+      <stats></stats>
+    </template>
   </popup>
 
   <transition name="fade">
-    <div v-show="this.loading" id="loading-thing"></div>
+    <div v-show="loading" id="loading-thing"></div>
   </transition>
-  <votings-list @hideList="showList = !showList" v-show="!this.isMobile || showList"></votings-list>
+  <votings-list @hideList="showList = !showList" v-show="!isMobile || showList"></votings-list>
   <router-view></router-view>
 
 </div>
 </template>
 
 <script>
-import Popup from "@/components/generic/Popup";
-import Stats from "@/components/Stats";
-import Voting from "@/components/Voting";
-import VotingsList from "@/components/VotingsList";
-import AppNav from "@/components/AppNav";
+import { useMainStore } from '@/store';
+import Popup from '@/components/generic/Popup.vue';
+import Stats from '@/components/Stats.vue';
+import Voting from '@/components/Voting.vue';
+import VotingsList from '@/components/VotingsList.vue';
+import AppNav from '@/components/AppNav.vue';
 
 export default {
   name: "mainapp",
@@ -36,19 +37,25 @@ export default {
     Voting,
     VotingsList
   },
+  setup() {
+    return { store: useMainStore() };
+  },
   data() {
     return {
       showStats: false,
-      showAbout: false,
-      showList: this.isMobile
+      showList: false
     };
+  },
+  created() {
+    // `isMobile` reads the viewport, so it can't be used in data() directly.
+    this.showList = this.isMobile;
   },
   computed: {
     loading() {
-      return this.$store.state.loading;
+      return this.store.loading;
     },
     isMobile() {
-      return this.$store.getters.isMobile;
+      return this.store.isMobile;
     }
   }
 };

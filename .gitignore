@@ -2,6 +2,9 @@
 node_modules
 /dist
 
+# throwaway introspection scripts
+_probe*.mjs
+
 # local env files
 .env.local
 .env.*.local

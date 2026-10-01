@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import Deputy from "@/components/Deputy";
+import Deputy from "@/components/Deputy.vue";
 
 export default {
   name: "deputies",

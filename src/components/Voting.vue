@@ -11,12 +11,14 @@
       <h3>{{project.tytul}}</h3>
       <p>{{project.opis}}</p>
 
-      <div v-for="(link, index) in links" :key="index" class="link" v-if="project[link.key] || link.href">
-        <a target="_blank" :href="project[link.key] || link.href(project)">
-          <font-awesome-icon :icon="link.icon" />{{link.name}}
-          <font-awesome-icon icon="external-link-alt" />
-        </a>
-      </div>
+      <template v-for="(link, index) in links" :key="index">
+        <div v-if="project[link.key] || link.href" class="link">
+          <a target="_blank" :href="project[link.key] || link.href(project)">
+            <font-awesome-icon :icon="link.icon" />{{link.name}}
+            <font-awesome-icon icon="external-link-alt" />
+          </a>
+        </div>
+      </template>
     </div>
 
     <mam-prawo-wiedziec v-if="currentVoting.mpw" :mpw="currentVoting.mpw"></mam-prawo-wiedziec>
@@ -56,12 +58,16 @@
 </template>
 
 <script>
-import Deputies from "@/components/Deputies";
-import MamPrawoWiedziec from "@/components/MamPrawoWiedziec";
+import { useMainStore } from '@/store';
+import Deputies from '@/components/Deputies.vue';
+import MamPrawoWiedziec from '@/components/MamPrawoWiedziec.vue';
 
 export default {
   name: "voting",
   props: ["kadencja", "posiedzenie", "glosowanie"],
+  setup() {
+    return { store: useMainStore() };
+  },
   data() {
     return {
       links: [
@@ -96,7 +102,7 @@ export default {
           icon: "tv"
         }
       ],
-      s1: 10 // ilość osób w kolumnie
+      s1: 10
     };
   },
   components: {
@@ -108,21 +114,26 @@ export default {
     this.registerKbdHandlers();
   },
   updated() {
-    document.querySelector("#scrollable-container").scrollTo({
-      top:
-        document.querySelector(".router-link-exact-active").offsetTop -
-        document.querySelector(".router-link-exact-active").clientHeight,
-      behavior: "smooth"
-    });
+    const container = document.querySelector("#scrollable-container");
+    const active = document.querySelector(".router-link-exact-active");
+    if (container && active) {
+      container.scrollTo({
+        top: active.offsetTop - active.clientHeight,
+        behavior: "smooth"
+      });
+    }
   },
   watch: {
     $route: function() {
       this.fetchVoting();
 
-      document.querySelector(".voting").scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      const votingEl = document.querySelector(".voting");
+      if (votingEl) {
+        votingEl.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
     }
   },
   computed: {
@@ -130,15 +141,15 @@ export default {
       return this.moment(new Date(this.currentVoting.votingDate));
     },
     currentVotingVote() {
-      return this.$store.state.userVotes[
+      return this.store.userVotes[
         `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`
       ];
     },
     userVotes() {
-      return this.$store.state.userVotes;
+      return this.store.userVotes;
     },
     currentVoting() {
-      return this.$store.getters.currentVoting(
+      return this.store.currentVoting(
         `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`
       );
     }
@@ -157,17 +168,21 @@ export default {
       });
     },
     userVote(vote) {
-      this.$store.commit("userVote", {
+      this.store.userVote({
         numbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`,
         vote: vote
       });
-      document.querySelector(".voting").scrollTo({
-        top: document.querySelector("#ocena").offsetTop,
-        behavior: "smooth"
-      });
+      const votingEl = document.querySelector(".voting");
+      const ocena = document.querySelector("#ocena");
+      if (votingEl && ocena) {
+        votingEl.scrollTo({
+          top: ocena.offsetTop,
+          behavior: "smooth"
+        });
+      }
     },
     fetchVoting() {
-      this.$store.dispatch("fetchVoting", {
+      this.store.fetchVoting({
         votingNumbers: `${this.kadencja}/${this.posiedzenie}/${this.glosowanie}`
       });
     },
@@ -188,7 +203,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .voting {
   display: flex;
@@ -246,8 +260,6 @@ export default {
 h1,
 h2,
 h3 {
-  /* text-decoration: underline; */
-  /* line-height: 1.5em; */
   padding-bottom: 0.5em;
   border-bottom: 0.1em solid #ddd;
   text-align: left;
@@ -315,9 +327,6 @@ svg#deputies-graph {
 }
 
 .currentVoting {
-  /* display: flex;
-    justify-content: center;
-    flex-direction: column; */
   width: 100%;
 }
 

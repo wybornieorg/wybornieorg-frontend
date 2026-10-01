@@ -1,50 +1,50 @@
-import Vue from "vue";
-import Router from "vue-router";
-import MainApp from "./views/MainApp";
-import Home from "./views/Home";
-import Voting from "./components/Voting";
-import NotFound from "./views/NotFound";
-import Loading from "./views/Loading";
+import { createRouter, createWebHashHistory } from 'vue-router';
 
-Vue.use(Router);
+import MainApp from '@/views/MainApp.vue';
+import Home from '@/views/Home.vue';
+import Voting from '@/components/Voting.vue';
+import NotFound from '@/views/NotFound.vue';
+import Loading from '@/views/Loading.vue';
 
-export default new Router({
-  routes: [
-    {
-      path: "/",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/wczytaj/:dane?",
-      name: "loading",
-      component: Loading,
-      props: true
-    },
-    {
-      path: "/:kadencja(\\d+)?/:posiedzenie(\\d+)?/:glosowanie(\\d+)?",
-      props: true,
-      redirect:
-        "/glosowania/:kadencja(\\d+)?/:posiedzenie(\\d+)?/:glosowanie(\\d+)?"
-    },
-    {
-      path: "/glosowania/",
-      children: [
-        {
-          path: ":kadencja(\\d+)?/:posiedzenie(\\d+)?/:glosowanie(\\d+)?",
-          name: "voting",
-          component: Voting,
-          props: true
-        }
-      ],
-      name: "main-app",
-      component: MainApp
-    },
-    {
-      path: "*",
-      redirect: "/",
-      name: "404",
-      component: NotFound
-    }
-  ]
+// Hash history: the app is served as a static bundle (GitHub Pages) and the
+// "save your votes" feature produces shareable #/wczytaj/<base64> links.
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/wczytaj/:dane?',
+    name: 'loading',
+    component: Loading,
+    props: true
+  },
+  {
+    // Old short links: /9/61/57 -> /glosowania/9/61/57
+    path: '/:kadencja(\\d+)?/:posiedzenie(\\d+)?/:glosowanie(\\d+)?',
+    redirect: (to) => ({ name: 'voting', params: to.params })
+  },
+  {
+    path: '/glosowania',
+    component: MainApp,
+    children: [
+      {
+        path: ':kadencja(\\d+)?/:posiedzenie(\\d+)?/:glosowanie(\\d+)?',
+        name: 'voting',
+        component: Voting,
+        props: true
+      }
+    ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFound
+  }
+];
+
+export default createRouter({
+  history: createWebHashHistory(),
+  routes
 });
