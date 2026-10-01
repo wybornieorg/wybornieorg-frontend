@@ -74,8 +74,19 @@ zapytanie się nie powiedzie.
 
 ## Deploy
 
-Build jest statyczny (SPA + hash routing), więc wystarczy wrzucić `dist/` do
-repozytorium `wybornieorg.github.io` (GitHub Pages, CNAME: `wybornie.org`).
+Deployem zajmuje się **GitHub Actions** (`.github/workflows/deploy.yml`): przy
+każdym pushu na `master` (lub ręcznie, `workflow_dispatch`) buduje aplikację i
+publikuje `dist/` na GitHub Pages **tego** repozytorium. Nie trzeba żadnych
+sekretów — wystarczy wbudowany `GITHUB_TOKEN`.
+
+Jednorazowo w **Settings → Pages** ustaw **Source: GitHub Actions**.
+
+Build używa `base: './'`, czyli ścieżek względnych — dzięki temu ten sam
+artefakt działa i pod adresem projektowym
+(`https://wybornieorg.github.io/wybornieorg-frontend/`), i pod `wybornie.org`.
+To drugie wymaga wpisania domeny w ustawieniach Pages i skierowania DNS na
+GitHub Pages (A: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
+`185.199.111.153`) — obecnie `wybornie.org` wskazuje na inny host.
 
 ## Dwie rzeczy, o których warto wiedzieć
 

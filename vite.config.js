@@ -12,6 +12,11 @@ const momentWithLocales = fileURLToPath(
 //   VITE_API_URL=http://localhost:3000 npm run build
 export default defineConfig({
   plugins: [vue()],
+  // Relative base so the same build works both at an apex custom domain
+  // (https://wybornie.org) and from a project path
+  // (https://wybornieorg.github.io/wybornieorg-frontend/). Safe because the app
+  // uses hash routing, so the document path never changes.
+  base: './',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

@@ -1,0 +1,59 @@
+name: deploy
+
+# Builds the app and publishes it to GitHub Pages.
+#
+# One-time setup (Settings -> Pages):
+#   Source: GitHub Actions
+#   (leave the custom domain empty until DNS for wybornie.org points at
+#    GitHub Pages -- see README)
+#
+# No secrets needed: the built-in GITHUB_TOKEN can publish to Pages.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let an in-flight deploy finish rather than cancelling it mid-publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22 # vite 8 needs ^20.19 || >=22.12
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          # The API is served separately from the static site.
+          VITE_API_URL: https://api.wybornie.org
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
