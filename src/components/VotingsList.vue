@@ -121,7 +121,7 @@ import Popup from '@/components/generic/Popup.vue';
 
 // Used only when /dev/kadencje can't be reached.
 const FALLBACK_KADENCJE = [3, 4, 5, 6, 7, 8, 9, 10];
-const FALLBACK_DEFAULT_KADENCJA = 9;
+const FALLBACK_DEFAULT_KADENCJA = FALLBACK_KADENCJE.at(-1);
 
 export default {
   name: "votings-list",
