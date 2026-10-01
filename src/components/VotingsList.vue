@@ -136,8 +136,7 @@ export default {
       pagination: 0,
       itemsPerPage: 10,
       listHidden: true,
-      kadencje:
-        routeKadencja !== undefined ? parseInt(routeKadencja) : undefined,
+      kadencje: routeKadencja ? parseInt(routeKadencja) : undefined,
       sortowanie: "data",
       filtrowanieStatus: ["odrzucony", "uchwalono"],
       filtrowanieUE: true,
