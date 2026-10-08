@@ -7,6 +7,33 @@ export const API_URL =
   import.meta.env.VITE_API_URL ||
   (import.meta.env.DEV ? 'http://localhost:3000' : 'https://api.wybornie.org');
 
+// User votes are persisted locally so they survive a page refresh — until now
+// they only lived in memory and were lost unless the user bookmarked a
+// #/wczytaj/<base64> link.
+const STORAGE_KEY = 'wybornie.userVotes';
+
+function loadSavedVotes() {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+      return {};
+    }
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch (e) {
+    // Corrupt entry or storage disabled (private mode / quota) — start empty.
+    return {};
+  }
+}
+
+function persistVotes(votes) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(votes));
+  } catch (e) {
+    // Storage unavailable; votes stay in memory for this session only.
+  }
+}
+
 function switchVote(vote) {
   if (vote === 'Za') {
     return 'Przeciw';
@@ -18,7 +45,7 @@ function switchVote(vote) {
 
 export const useMainStore = defineStore('main', {
   state: () => ({
-    userVotes: {},
+    userVotes: loadSavedVotes(),
     domain: API_URL,
     votingsCache: {},
     loading: 0,
@@ -37,6 +64,7 @@ export const useMainStore = defineStore('main', {
       } else {
         this.userVotes[numbers] = vote ? 1 : -1;
       }
+      persistVotes(this.userVotes);
     },
     loadingUp() {
       this.loading++;
@@ -46,6 +74,7 @@ export const useMainStore = defineStore('main', {
     },
     loadSavedData(votes) {
       this.userVotes = votes;
+      persistVotes(this.userVotes);
     },
     cacheVoting({ numbers, data }) {
       this.votingsCache[numbers] = data;
